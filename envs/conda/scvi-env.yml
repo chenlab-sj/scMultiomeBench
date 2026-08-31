@@ -1,0 +1,32 @@
+name: scvi-env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - python=3.9
+  - pytorch
+  - pytorch-cuda=11.7
+  - torchaudio
+  - torchvision
+  - jax
+  - jaxlib
+  - scvi-tools
+  - conda-forge::matplotlib
+  - conda-forge::anyio
+  - conda-forge::click
+  - conda-forge::websockets
+  - websocket-client
+  - conda-forge::bs4
+  - conda-forge::toolz
+  - msgpack-python
+  - multipledispatch
+  - seaborn
+  - jupyterlab
+  - conda-forge::pymde
+  - conda-forge::muon
+  - conda-forge::pytorch_geometric
+  - pyranges
+prefix: /path/to/conda/envs/scvi-env

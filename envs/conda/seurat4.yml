@@ -1,0 +1,19 @@
+name: seurat4
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - r-essentials
+  - r-devtools
+  - igraph
+  - hdf5
+  - r-rgeos
+  - r-rcppparallel
+  - r-harmony
+  - h5py
+  - conda-forge::r-hdf5r
+  - conda-forge::r-rjags
+prefix: /path/to/conda/envs/seurat4

@@ -1,0 +1,299 @@
+method,accuracy,type
+BindSC,0.8621158091356766,overall
+BindSC,0.9760956175298804,CD56 (bright) NK cells
+BindSC,0.9326599326599326,CD56 (dim) NK cells
+BindSC,0.9108061749571184,classical monocytes
+BindSC,0.2360515021459227,effector CD8 T cells
+BindSC,0.5404699738903395,intermediate monocytes
+BindSC,0.9012875536480688,memory B cells
+BindSC,0.9776595744680852,memory CD4 T cells
+BindSC,0.8766233766233766,myeloid DC
+BindSC,0.9005524861878453,naive B cells
+BindSC,0.8108407079646017,naive CD4 T cells
+BindSC,0.9439050701186624,naive CD8 T cells
+BindSC,0.8909090909090909,non-classical monocytes
+Conos,0.6671760910171506,overall
+Conos,0.9880478087649402,CD56 (bright) NK cells
+Conos,0.7811447811447811,CD56 (dim) NK cells
+Conos,0.9922813036020584,classical monocytes
+Conos,0.759656652360515,effector CD8 T cells
+Conos,0.1201044386422976,intermediate monocytes
+Conos,0.9871244635193132,memory B cells
+Conos,0.7712765957446809,memory CD4 T cells
+Conos,0.4805194805194805,myeloid DC
+Conos,0.585635359116022,naive B cells
+Conos,0.0121681415929203,naive CD4 T cells
+Conos,0.9902912621359224,naive CD8 T cells
+Conos,0.0227272727272727,non-classical monocytes
+LIGER,0.6316861946001019,overall
+LIGER,0.900398406374502,CD56 (bright) NK cells
+LIGER,0.9427609427609428,CD56 (dim) NK cells
+LIGER,0.0,effector CD8 T cells
+LIGER,0.5536480686695279,intermediate monocytes
+LIGER,0.660574412532637,memory B cells
+LIGER,0.9012875536480688,memory CD4 T cells
+LIGER,0.952127659574468,myeloid DC
+LIGER,0.6883116883116883,naive B cells
+LIGER,0.5580110497237569,naive CD4 T cells
+LIGER,0.8639380530973452,naive CD8 T cells
+LIGER,0.6558791801510249,non-classical monocytes
+MultiMAP,0.3211071489217184,overall
+MultiMAP,0.1314741035856573,CD56 (bright) NK cells
+MultiMAP,0.2154882154882154,CD56 (dim) NK cells
+MultiMAP,0.5540308747855918,classical monocytes
+MultiMAP,0.1845493562231759,effector CD8 T cells
+MultiMAP,0.248041775456919,intermediate monocytes
+MultiMAP,0.4334763948497854,memory B cells
+MultiMAP,0.4882978723404255,memory CD4 T cells
+MultiMAP,0.1558441558441558,myeloid DC
+MultiMAP,0.3922651933701657,naive B cells
+MultiMAP,0.1880530973451327,naive CD4 T cells
+MultiMAP,0.1801510248112189,naive CD8 T cells
+MultiMAP,0.0818181818181818,non-classical monocytes
+Seurat(CCA),0.8520971302428256,overall
+Seurat(CCA),0.9282868525896414,CD56 (bright) NK cells
+Seurat(CCA),0.9326599326599326,CD56 (dim) NK cells
+Seurat(CCA),0.8653516295025729,classical monocytes
+Seurat(CCA),0.463519313304721,effector CD8 T cells
+Seurat(CCA),0.4882506527415143,intermediate monocytes
+Seurat(CCA),0.9313304721030042,memory B cells
+Seurat(CCA),0.9,memory CD4 T cells
+Seurat(CCA),0.5194805194805194,myeloid DC
+Seurat(CCA),0.9337016574585636,naive B cells
+Seurat(CCA),0.9258849557522124,naive CD4 T cells
+Seurat(CCA),0.941747572815534,naive CD8 T cells
+Seurat(CCA),0.8272727272727273,non-classical monocytes
+scDART,0.4299541518084564,overall
+scDART,0.852589641434263,CD56 (bright) NK cells
+scDART,0.898989898989899,CD56 (dim) NK cells
+scDART,0.8087478559176673,classical monocytes
+scDART,0.6437768240343348,effector CD8 T cells
+scDART,0.3263707571801567,intermediate monocytes
+scDART,0.0171673819742489,memory B cells
+scDART,0.0053191489361702,memory CD4 T cells
+scDART,0.0649350649350649,myeloid DC
+scDART,0.0773480662983425,naive B cells
+scDART,0.7300884955752213,naive CD4 T cells
+scDART,0.0496224379719525,naive CD8 T cells
+scDART,0.4272727272727272,non-classical monocytes
+scMoMaT,0.7570045848191543,overall
+scMoMaT,0.848605577689243,CD56 (bright) NK cells
+scMoMaT,0.8518518518518519,CD56 (dim) NK cells
+scMoMaT,0.9271012006861064,classical monocytes
+scMoMaT,0.3648068669527897,effector CD8 T cells
+scMoMaT,0.1044386422976501,intermediate monocytes
+scMoMaT,0.9141630901287554,memory B cells
+scMoMaT,0.8819148936170212,memory CD4 T cells
+scMoMaT,0.5,myeloid DC
+scMoMaT,0.7569060773480663,naive B cells
+scMoMaT,0.9358407079646016,naive CD4 T cells
+scMoMaT,0.7195253505933118,naive CD8 T cells
+scMoMaT,0.0772727272727272,non-classical monocytes
+simba,0.870096790626592,overall
+simba,0.9760956175298804,CD56 (bright) NK cells
+simba,0.9595959595959596,CD56 (dim) NK cells
+simba,0.9005145797598628,classical monocytes
+simba,0.3605150214592275,effector CD8 T cells
+simba,0.5900783289817232,intermediate monocytes
+simba,0.9742489270386266,memory B cells
+simba,0.95,memory CD4 T cells
+simba,0.7272727272727273,myeloid DC
+simba,0.9281767955801103,naive B cells
+simba,0.9048672566371682,naive CD4 T cells
+simba,0.9277238403451996,naive CD8 T cells
+simba,0.7090909090909091,non-classical monocytes
+scglue,0.9023603328239088,overall
+scglue,0.9800796812749004,CD56 (bright) NK cells
+scglue,0.9494949494949496,CD56 (dim) NK cells
+scglue,0.9502572898799314,classical monocytes
+scglue,0.7725321888412017,effector CD8 T cells
+scglue,0.5509138381201044,intermediate monocytes
+scglue,0.9785407725321889,memory B cells
+scglue,0.9723404255319148,memory CD4 T cells
+scglue,0.8181818181818182,myeloid DC
+scglue,0.9779005524861878,naive B cells
+scglue,0.8971238938053098,naive CD4 T cells
+scglue,0.9622437971952535,naive CD8 T cells
+scglue,0.6318181818181818,non-classical monocytes
+Unioncom,0.2533537103073527,overall
+Unioncom,0.649402390438247,CD56 (bright) NK cells
+Unioncom,0.0033670033670033,CD56 (dim) NK cells
+Unioncom,0.0051457975986277,classical monocytes
+Unioncom,0.0171673819742489,effector CD8 T cells
+Unioncom,0.0,intermediate monocytes
+Unioncom,0.2875536480686695,memory B cells
+Unioncom,0.7882978723404256,memory CD4 T cells
+Unioncom,0.474025974025974,myeloid DC
+Unioncom,0.0,naive B cells
+Unioncom,0.0132743362831858,naive CD4 T cells
+Unioncom,0.2664509169363538,naive CD8 T cells
+Unioncom,0.8090909090909091,non-classical monocytes
+Portal,0.8544744438784174,overall
+Portal,0.9880478087649402,CD56 (bright) NK cells
+Portal,0.8653198653198653,CD56 (dim) NK cells
+Portal,0.9562607204116638,classical monocytes
+Portal,0.4034334763948498,effector CD8 T cells
+Portal,0.4203655352480417,intermediate monocytes
+Portal,0.965665236051502,memory B cells
+Portal,0.9297872340425531,memory CD4 T cells
+Portal,0.7012987012987013,myeloid DC
+Portal,0.9558011049723756,naive B cells
+Portal,0.8971238938053098,naive CD4 T cells
+Portal,0.889967637540453,naive CD8 T cells
+Portal,0.6409090909090909,non-classical monocytes
+scJoint,0.7889285107828155,overall
+scJoint,0.9840637450199204,CD56 (bright) NK cells
+scJoint,0.925925925925926,CD56 (dim) NK cells
+scJoint,0.9176672384219554,classical monocytes
+scJoint,0.5493562231759657,effector CD8 T cells
+scJoint,0.1514360313315927,intermediate monocytes
+scJoint,0.9957081545064378,memory B cells
+scJoint,0.9297872340425531,memory CD4 T cells
+scJoint,0.2662337662337662,myeloid DC
+scJoint,0.3204419889502762,naive B cells
+scJoint,0.8694690265486725,naive CD4 T cells
+scJoint,0.9460625674217908,naive CD8 T cells
+scJoint,0.0,non-classical monocytes
+scBridge,0.8784173883511632,overall
+scBridge,0.9760956175298804,CD56 (bright) NK cells
+scBridge,0.9326599326599326,CD56 (dim) NK cells
+scBridge,0.981132075471698,classical monocytes
+scBridge,0.3862660944206008,effector CD8 T cells
+scBridge,0.206266318537859,intermediate monocytes
+scBridge,0.9871244635193132,memory B cells
+scBridge,0.9351063829787234,memory CD4 T cells
+scBridge,0.7987012987012987,myeloid DC
+scBridge,0.988950276243094,naive B cells
+scBridge,0.915929203539823,naive CD4 T cells
+scBridge,0.9751887810140236,naive CD8 T cells
+scBridge,0.8863636363636364,non-classical monocytes
+Cobolt,0.9169638308711155,overall
+Cobolt,0.9482071713147412,CD56 (bright) NK cells
+Cobolt,0.8888888888888888,CD56 (dim) NK cells
+Cobolt,0.9288164665523156,classical monocytes
+Cobolt,0.776824034334764,effector CD8 T cells
+Cobolt,0.6945169712793734,intermediate monocytes
+Cobolt,0.9742489270386266,memory B cells
+Cobolt,0.9648936170212766,memory CD4 T cells
+Cobolt,0.9025974025974026,myeloid DC
+Cobolt,0.9723756906077348,naive B cells
+Cobolt,0.9015486725663716,naive CD4 T cells
+Cobolt,0.9676375404530744,naive CD8 T cells
+Cobolt,0.9409090909090908,non-classical monocytes
+scglue(multiome),0.9232467311937512,overall
+scglue(multiome),0.9880478087649402,CD56 (bright) NK cells
+scglue(multiome),0.9124579124579124,CD56 (dim) NK cells
+scglue(multiome),0.932246998284734,classical monocytes
+scglue(multiome),0.776824034334764,effector CD8 T cells
+scglue(multiome),0.7597911227154047,intermediate monocytes
+scglue(multiome),0.9699570815450644,memory B cells
+scglue(multiome),0.9861702127659574,memory CD4 T cells
+scglue(multiome),0.8896103896103896,myeloid DC
+scglue(multiome),1.0,naive B cells
+scglue(multiome),0.8772123893805309,naive CD4 T cells
+scglue(multiome),0.964401294498382,naive CD8 T cells
+scglue(multiome),0.9136363636363636,non-classical monocytes
+scVI,0.9218882662591272,overall
+scVI,0.9641434262948207,CD56 (bright) NK cells
+scVI,0.925925925925926,CD56 (dim) NK cells
+scVI,0.9459691252144082,classical monocytes
+scVI,0.7896995708154506,effector CD8 T cells
+scVI,0.7101827676240209,intermediate monocytes
+scVI,0.9871244635193132,memory B cells
+scVI,0.9691489361702128,memory CD4 T cells
+scVI,0.7857142857142857,myeloid DC
+scVI,0.9779005524861878,naive B cells
+scVI,0.8938053097345132,naive CD4 T cells
+scVI,0.9730312837108952,naive CD8 T cells
+scVI,0.9272727272727272,non-classical monocytes
+Seurat(WNN),0.6681949397181185,overall
+Seurat(WNN),0.8087649402390438,CD56 (bright) NK cells
+Seurat(WNN),0.6531986531986532,CD56 (dim) NK cells
+Seurat(WNN),0.8927958833619211,classical monocytes
+Seurat(WNN),0.1158798283261802,effector CD8 T cells
+Seurat(WNN),0.3289817232375979,intermediate monocytes
+Seurat(WNN),0.7124463519313304,memory B cells
+Seurat(WNN),0.7819148936170213,memory CD4 T cells
+Seurat(WNN),0.4025974025974026,myeloid DC
+Seurat(WNN),0.6740331491712708,naive B cells
+Seurat(WNN),0.7809734513274337,naive CD4 T cells
+Seurat(WNN),0.4530744336569579,naive CD8 T cells
+Seurat(WNN),0.6045454545454545,non-classical monocytes
+MinNet,0.8169468500594328,overall
+MinNet,0.9880478087649402,CD56 (bright) NK cells
+MinNet,0.9191919191919192,CD56 (dim) NK cells
+MinNet,0.7813036020583191,classical monocytes
+MinNet,0.6437768240343348,effector CD8 T cells
+MinNet,0.587467362924282,intermediate monocytes
+MinNet,0.96137339055794,memory B cells
+MinNet,0.9148936170212766,memory CD4 T cells
+MinNet,0.6493506493506493,myeloid DC
+MinNet,0.8895027624309392,naive B cells
+MinNet,0.7842920353982301,naive CD4 T cells
+MinNet,0.8640776699029126,naive CD8 T cells
+MinNet,0.6772727272727272,non-classical monocytes
+MaxFuse,0.912548819833588,overall
+MaxFuse,0.9880478087649402,CD56 (bright) NK cells
+MaxFuse,0.8956228956228957,CD56 (dim) NK cells
+MaxFuse,0.9476843910806176,classical monocytes
+MaxFuse,0.721030042918455,effector CD8 T cells
+MaxFuse,0.5926892950391645,intermediate monocytes
+MaxFuse,0.9742489270386266,memory B cells
+MaxFuse,0.9702127659574468,memory CD4 T cells
+MaxFuse,0.8961038961038961,myeloid DC
+MaxFuse,0.988950276243094,naive B cells
+MaxFuse,0.9026548672566372,naive CD4 T cells
+MaxFuse,0.964401294498382,naive CD8 T cells
+MaxFuse,0.8818181818181818,non-classical monocytes
+Multigrate,0.5114620478858889,overall
+Multigrate,0.9681274900398408,CD56 (bright) NK cells
+Multigrate,0.3838383838383838,CD56 (dim) NK cells
+Multigrate,0.8121783876500858,classical monocytes
+Multigrate,0.1974248927038626,effector CD8 T cells
+Multigrate,0.1253263707571801,intermediate monocytes
+Multigrate,0.6008583690987125,memory B cells
+Multigrate,0.15,memory CD4 T cells
+Multigrate,0.1038961038961039,myeloid DC
+Multigrate,0.3370165745856354,naive B cells
+Multigrate,0.4823008849557522,naive CD4 T cells
+Multigrate,0.8845738942826321,naive CD8 T cells
+Multigrate,0.0,non-classical monocytes
+MIDAS,0.9028697571743928,overall
+MIDAS,0.9721115537848606,CD56 (bright) NK cells
+MIDAS,0.9326599326599326,CD56 (dim) NK cells
+MIDAS,0.9493996569468268,classical monocytes
+MIDAS,0.6824034334763949,effector CD8 T cells
+MIDAS,0.6292428198433421,intermediate monocytes
+MIDAS,0.965665236051502,memory B cells
+MIDAS,0.9425531914893616,memory CD4 T cells
+MIDAS,0.7467532467532467,myeloid DC
+MIDAS,0.9281767955801103,naive B cells
+MIDAS,0.9457964601769911,naive CD4 T cells
+MIDAS,0.90722761596548,naive CD8 T cells
+MIDAS,0.9045454545454544,non-classical monocytes
+scButterfly,0.9103413143148242,overall
+scButterfly,0.9362549800796812,CD56 (bright) NK cells
+scButterfly,0.9663299663299664,CD56 (dim) NK cells
+scButterfly,0.9768439108061748,classical monocytes
+scButterfly,0.8669527896995708,effector CD8 T cells
+scButterfly,0.5091383812010444,intermediate monocytes
+scButterfly,0.9785407725321889,memory B cells
+scButterfly,0.924468085106383,memory CD4 T cells
+scButterfly,0.8506493506493507,myeloid DC
+scButterfly,0.9723756906077348,naive B cells
+scButterfly,0.9214601769911503,naive CD4 T cells
+scButterfly,0.9719525350593312,naive CD8 T cells
+scButterfly,0.75,non-classical monocytes
+MIRA,0.8439463406350823,overall
+MIRA,0.9123505976095617,CD56 (bright) NK cells
+MIRA,0.7744107744107744,CD56 (dim) NK cells
+MIRA,0.8876500857632933,classical monocytes
+MIRA,0.7339055793991416,effector CD8 T cells
+MIRA,0.7702349869451697,intermediate monocytes
+MIRA,0.9699570815450643,memory B cells
+MIRA,0.9351063829787234,memory CD4 T cells
+MIRA,0.6688311688311688,myeloid DC
+MIRA,0.8839779005524862,naive B cells
+MIRA,0.8263274336283186,naive CD4 T cells
+MIRA,0.9633225458468176,naive CD8 T cells
+MIRA,0.00909090909090909,non-classical monocytes

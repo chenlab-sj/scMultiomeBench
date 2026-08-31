@@ -1,0 +1,11 @@
+name: multimap
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - jupyterlab
+  - leidenalg
+prefix: /path/to/home

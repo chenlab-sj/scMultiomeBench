@@ -1,0 +1,16 @@
+name: MinNet
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - pytorch
+  - torchvision
+  - scanpy
+  - leidenalg
+  - python-igraph
+  - pytorch-cuda=12.1
+  - torchaudio
+prefix: /path/to/conda/envs/MinNet

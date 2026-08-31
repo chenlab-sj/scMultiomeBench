@@ -1,0 +1,11 @@
+name: midas-env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - pip
+  - python=3.12
+prefix: /path/to/conda/envs/midas-env

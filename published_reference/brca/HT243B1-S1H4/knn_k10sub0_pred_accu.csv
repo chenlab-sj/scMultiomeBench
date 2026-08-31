@@ -1,0 +1,145 @@
+,pipeline,accuracy,type
+0,BindSC,0.950154069,overall
+1,BindSC,0.904545455,B-cells
+2,BindSC,0.877952756,Basal progenitor
+3,BindSC,0.965065502,Fibroblasts
+4,BindSC,0.986737401,Luminal progenitor
+5,BindSC,0.974178404,Macrophages
+6,BindSC,0.956395349,T-cells
+7,BindSC,0.945219124,Tumor
+8,Seurat(CCA),0.964835962,overall
+9,Seurat(CCA),0.845454545,B-cells
+10,Seurat(CCA),0.88976378,Basal progenitor
+11,Seurat(CCA),0.984716157,Fibroblasts
+12,Seurat(CCA),0.986737401,Luminal progenitor
+13,Seurat(CCA),0.983568075,Macrophages
+14,Seurat(CCA),0.938953488,T-cells
+15,Seurat(CCA),0.971779548,Tumor
+16,scDART,0.698386804,overall
+17,scDART,0.022727273,B-cells
+18,scDART,0.681102362,Basal progenitor
+19,scDART,0,Fibroblasts
+20,scDART,0.034482759,Luminal progenitor
+21,scDART,0.924882629,Macrophages
+22,scDART,0,T-cells
+23,scDART,0.954183267,Tumor
+24,simba,0.966829799,overall
+25,simba,0.877272727,B-cells
+26,simba,0.952755906,Basal progenitor
+27,simba,0.995633188,Fibroblasts
+28,simba,0.98938992,Luminal progenitor
+29,simba,0.976525822,Macrophages
+30,simba,0.962209302,T-cells
+31,simba,0.965139442,Tumor
+32,scglue,0.96936741,overall
+33,scglue,0.9,B-cells
+34,scglue,0.897637795,Basal progenitor
+35,scglue,0.991266376,Fibroblasts
+36,scglue,0.99204244,Luminal progenitor
+37,scglue,0.987089202,Macrophages
+38,scglue,0.938953488,T-cells
+39,scglue,0.972775564,Tumor
+40,Portal,0.947616458,overall
+41,Portal,0.904545455,B-cells
+42,Portal,0.842519685,Basal progenitor
+43,Portal,0.967248908,Fibroblasts
+44,Portal,0.973474801,Luminal progenitor
+45,Portal,0.969483568,Macrophages
+46,Portal,0.938953488,T-cells
+47,Portal,0.948207171,Tumor
+48,scJoint,0.955773065,overall
+49,scJoint,0.8,B-cells
+50,scJoint,0.751968504,Basal progenitor
+51,scJoint,0.967248908,Fibroblasts
+52,scJoint,0.978779841,Luminal progenitor
+53,scJoint,0.994131455,Macrophages
+54,scJoint,0.898255814,T-cells
+55,scJoint,0.975431607,Tumor
+56,scBridge,0.958491934,overall
+57,scBridge,0.872727273,B-cells
+58,scBridge,0.850393701,Basal progenitor
+59,scBridge,0.965065502,Fibroblasts
+60,scBridge,0.99469496,Luminal progenitor
+61,scBridge,0.960093897,Macrophages
+62,scBridge,0.938953488,T-cells
+63,scBridge,0.970119522,Tumor
+64,scglue(multiome),0.973898858,overall
+65,scglue(multiome),0.886363636,B-cells
+66,scglue(multiome),0.893700787,Basal progenitor
+67,scglue(multiome),0.997816594,Fibroblasts
+68,scglue(multiome),0.986737401,Luminal progenitor
+69,scglue(multiome),0.98943662,Macrophages
+70,scglue(multiome),0.962209302,T-cells
+71,scglue(multiome),0.97875166,Tumor
+72,scVI,0.919702737,overall
+73,scVI,0.118181818,B-cells
+74,scVI,0.842519685,Basal progenitor
+75,scVI,0.945414847,Fibroblasts
+76,scVI,0.925729443,Luminal progenitor
+77,scVI,0.984741784,Macrophages
+78,scVI,0.828488372,T-cells
+79,scVI,0.972111554,Tumor
+80,MinNet,0.863694037,overall
+81,MinNet,0.113636364,B-cells
+82,MinNet,0.657480315,Basal progenitor
+83,MinNet,0.973799127,Fibroblasts
+84,MinNet,0.816976127,Luminal progenitor
+85,MinNet,0.888497653,Macrophages
+86,MinNet,0.688953488,T-cells
+87,MinNet,0.937915007,Tumor
+,Cobolt,0.55863694,overall
+,Cobolt,0,B-cells
+,Cobolt,0.003937008,Basal progenitor
+,Cobolt,0,Fibroblasts
+,Cobolt,0,Luminal progenitor
+,Cobolt,0.63028169,Macrophages
+,Cobolt,0.020348837,T-cells
+,Cobolt,0.842297477,Tumor
+8,Conos,0.929309407,overall
+9,Conos,0.754545455,B-cells
+10,Conos,0.807086614,Basal progenitor
+11,Conos,0.770742358,Fibroblasts
+12,Conos,0.978779841,Luminal progenitor
+13,Conos,0.981220657,Macrophages
+14,Conos,0.877906977,T-cells
+15,Conos,0.961487384,Tumor
+16,LIGER,0.946891426,overall
+17,LIGER,0.877272727,B-cells
+18,LIGER,0.787401575,Basal progenitor
+19,LIGER,0.962882096,Fibroblasts
+20,LIGER,0.962864721,Luminal progenitor
+21,LIGER,0.973004695,Macrophages
+22,LIGER,0.863372093,T-cells
+23,LIGER,0.96314741,Tumor
+24,MultiMAP,0.623164763,overall
+25,MultiMAP,0.095454545,B-cells
+26,MultiMAP,0.043307087,Basal progenitor
+27,MultiMAP,0.713973799,Fibroblasts
+28,MultiMAP,0.599469496,Luminal progenitor
+29,MultiMAP,0.451877934,Macrophages
+30,MultiMAP,0.220930233,T-cells
+31,MultiMAP,0.794156707,Tumor
+48,scMoMaT,0.893239079,overall
+49,scMoMaT,0.690909091,B-cells
+50,scMoMaT,0.661417323,Basal progenitor
+51,scMoMaT,0.733624454,Fibroblasts
+52,scMoMaT,0.795755968,Luminal progenitor
+53,scMoMaT,0.922535211,Macrophages
+54,scMoMaT,0.60755814,T-cells
+55,scMoMaT,0.988379814,Tumor
+72,Unioncom,0.516222585,overall
+73,Unioncom,0,B-cells
+74,Unioncom,0.003937008,Basal progenitor
+75,Unioncom,0.46069869,Fibroblasts
+76,Unioncom,0,Luminal progenitor
+77,Unioncom,0.258215962,Macrophages
+78,Unioncom,0,T-cells
+79,Unioncom,0.802124834,Tumor
+128,Seurat(WNN),0.593438463,overall
+129,Seurat(WNN),0.072727273,B-cells
+130,Seurat(WNN),0.137795276,Basal progenitor
+131,Seurat(WNN),0.316593886,Fibroblasts
+132,Seurat(WNN),0.103448276,Luminal progenitor
+133,Seurat(WNN),0.774647887,Macrophages
+134,Seurat(WNN),0.363372093,T-cells
+135,Seurat(WNN),0.748339973,Tumor

@@ -1,0 +1,11 @@
+name: cobolt
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - pip
+  - jupyterlab
+prefix: /path/to/conda/envs/cobolt

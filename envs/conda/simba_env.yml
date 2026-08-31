@@ -1,0 +1,10 @@
+name: simba_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - simba
+prefix: /path/to/conda/envs/simba_env

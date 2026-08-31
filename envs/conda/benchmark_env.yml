@@ -1,0 +1,19 @@
+name: benchmark_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - scipy
+  - python-igraph
+  - scanpy
+  - leidenalg
+  - matplotlib
+  - conda-forge::louvain
+  - jupyterlab
+  - rpy2
+  - r-base
+  - r-essentials
+prefix: /path/to/conda/envs/benchmark_env

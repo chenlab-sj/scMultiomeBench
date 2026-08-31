@@ -1,0 +1,58 @@
+anndata @ file:///home/conda/feedstock_root/build_artifacts/anndata_1657187088889/work
+cached-property @ file:///home/conda/feedstock_root/build_artifacts/cached_property_1615209429212/work
+certifi==2022.9.24
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1666754704913/work
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1666700638685/work
+contourpy @ file:///home/conda/feedstock_root/build_artifacts/contourpy_1667247999152/work
+cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
+dill @ file:///home/conda/feedstock_root/build_artifacts/dill_1666603105584/work
+fonttools @ file:///home/conda/feedstock_root/build_artifacts/fonttools_1666827107856/work
+h5py @ file:///home/conda/feedstock_root/build_artifacts/h5py_1666830838702/work
+igraph @ file:///home/conda/feedstock_root/build_artifacts/python-igraph_1666940959040/work
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1666781969417/work
+joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1663332044897/work
+kiwisolver @ file:///home/conda/feedstock_root/build_artifacts/kiwisolver_1666805701884/work
+leidenalg==0.9.0
+llvmlite==0.39.1
+matplotlib @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-suite_1667504897083/work
+munkres==1.1.4
+natsort @ file:///home/conda/feedstock_root/build_artifacts/natsort_1662085508562/work
+networkx @ file:///home/conda/feedstock_root/build_artifacts/networkx_1667391556261/work
+numba @ file:///home/conda/feedstock_root/build_artifacts/numba_1665771410863/work
+numpy==1.23.5
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.5.1
+parse @ file:///home/conda/feedstock_root/build_artifacts/parse_1610612363844/work
+patsy @ file:///home/conda/feedstock_root/build_artifacts/patsy_1665356157073/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1666920557929/work
+protobuf==3.20.2
+pybedtools==0.9.1
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+pynndescent @ file:///home/conda/feedstock_root/build_artifacts/pynndescent_1667326205155/work
+pynvml @ file:///home/conda/feedstock_root/build_artifacts/pynvml_1639061605391/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
+pysam==0.20.0
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytorch-ignite @ file:///home/conda/feedstock_root/build_artifacts/pytorch-ignite_1642459536458/work
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1667391478166/work
+scanpy @ file:///home/conda/feedstock_root/build_artifacts/scanpy_1649193201077/work
+scglue @ file:///opt/conda/conda-bld/scglue_1661521216096/work
+scikit-learn @ file:///home/conda/feedstock_root/build_artifacts/scikit-learn_1666884865087/work
+scikit-misc==0.3.0
+scipy==1.9.3
+seaborn @ file:///home/conda/feedstock_root/build_artifacts/seaborn-split_1666117478708/work
+session-info @ file:///home/conda/feedstock_root/build_artifacts/session-info_1649179682763/work
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+sparse @ file:///home/conda/feedstock_root/build_artifacts/sparse_1630177719379/work
+statsmodels @ file:///home/conda/feedstock_root/build_artifacts/statsmodels_1667586015456/work
+stdlib-list @ file:///home/conda/feedstock_root/build_artifacts/stdlib-list_1667495268108/work
+tensorboardX @ file:///home/conda/feedstock_root/build_artifacts/tensorboardx_1645578792360/work
+texttable @ file:///home/conda/feedstock_root/build_artifacts/texttable_1626204417032/work
+threadpoolctl @ file:///home/conda/feedstock_root/build_artifacts/threadpoolctl_1643647933166/work
+torch @ file:///home/conda/feedstock_root/build_artifacts/pytorch-recipe_1650977166858/work
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1662214488106/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1665144421445/work
+umap-learn @ file:///home/conda/feedstock_root/build_artifacts/umap-learn_1649908149248/work
+unicodedata2 @ file:///home/conda/feedstock_root/build_artifacts/unicodedata2_1667239886688/work
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1666647772197/work
+

@@ -1,0 +1,13 @@
+name: scjoint
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - scipy
+  - h5py
+  - torchvision
+  - pytorch
+prefix: /path/to/conda/envs/scjoint

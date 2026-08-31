@@ -1,0 +1,14 @@
+name: bindsc
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - r-essentials
+  - hdf5
+  - igraph
+  - r-devtools
+  - r-ggpubr
+prefix: /path/to/conda/envs/bindsc

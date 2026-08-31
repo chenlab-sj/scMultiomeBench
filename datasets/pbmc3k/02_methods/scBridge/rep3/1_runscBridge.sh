@@ -1,0 +1,23 @@
+#!/bin/bash
+# Load path configuration (DATA_ROOT, PROJECT_ROOT, TOOLS_ROOT, REF_ROOT, ...)
+[ -f "${CONFIG_SH:-$(git rev-parse --show-toplevel 2>/dev/null)/config/config.sh}" ] && . "${CONFIG_SH:-$(git rev-parse --show-toplevel)/config/config.sh}"
+
+
+#BSUB -P scBridge
+#BSUB -J scBridge_s3
+#BSUB -q gpu
+#BSUB -R rusage[mem=300000]
+#BSUB -gpu "num=1"
+#BSUB -o scBridge_s3.log
+#BSUB -e scBridge_s3.err
+
+
+module load conda3/202210
+
+conda activate scBridge
+module load gcc/13.1.0-rhel7
+
+cd ${TOOLS_ROOT}/scBridge
+python main.py --data_path="pbmc3k/" --source_data="scBridge_rna.h5ad" --target_data="scBridge_atac.h5ad" --random_seed=40 --umap_plot
+
+conda deactivate

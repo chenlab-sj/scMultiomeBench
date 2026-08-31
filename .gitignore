@@ -1,0 +1,66 @@
+# ---- data: never commit (GitHub blocks >100MB; this project's data is ~250GB) ----
+*.h5ad
+*.h5
+*.rds
+*.RData
+*.mtx
+*.mtx.gz
+*.loom
+*.bw
+*.bigwig
+*.tsv.gz
+*.tsv.gz.tbi
+*.fastq
+*.fastq.gz
+*.bam
+*.bam.bai
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.arrow
+ArrowFiles/
+barcodes.tsv
+features.tsv
+matrix.mtx
+
+# ---- oversized published-reference tables (available from the authors on request) ----
+# Required by Fig 5B and Figs S8/S9; 88.7 MB and 18.1 MB, documented in DATA.md section 9.
+published_reference/rms/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv
+published_reference/rms/Mast607A/knn_test/predicted_ataclabel_myod1value.csv
+
+# ---- local-only path mapping: must never be published ----
+config/config.local.sh
+data/LOCAL_PATHS.md
+LOCAL_PATHS.md
+
+# ---- caches, logs, scratch ----
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+lightning_logs/
+*.Rout
+*.err
+*.log
+*.bak
+tmp/
+old/
+staged/
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+
+# ---- OS / editor cruft ----
+.DS_Store
+._*
+~$*
+*.swp
+.vscode/
+.idea/
+
+# working note for the author - not part of the repo
+AUTHOR_TODO.md
+_review/
+
+# large published-reference inputs for Fig S8/S9 - kept locally, available on request

@@ -1,0 +1,11 @@
+name: scmomat
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - jupyterlab
+  - conda-forge::scanpy
+prefix: /path/to/conda/envs/scmomat
