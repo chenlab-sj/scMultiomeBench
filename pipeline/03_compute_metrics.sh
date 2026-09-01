@@ -217,7 +217,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "03 metrics :: RMS Mast607A (GEO GSE30978; Fig5, FigS8-S10)"
+  say "03 metrics :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
   sub "datasets/rms/03_metrics"
   run "datasets/rms/03_metrics/00_prep_latents.py"
   run "datasets/rms/03_metrics/01_compute_metrics.py"
@@ -236,10 +236,6 @@ if want rms; then
   lsf "datasets/rms/03_metrics/reproducibility/02_reproduce_metrics_sub.sh"
   sub "datasets/rms/03_metrics"
   lsf "datasets/rms/03_metrics/run_all.sh"
-  sub "datasets/rms/05_atac_precede_rna/03_metrics"
-  run "datasets/rms/05_atac_precede_rna/03_metrics/00_dpt_pseudotime.py"
-  run "datasets/rms/05_atac_precede_rna/03_metrics/01_region_atac_by_bin.R"
-  lsf "datasets/rms/05_atac_precede_rna/03_metrics/02_run_velocyto_sub.sh"
 fi
 
 if want summary; then

@@ -160,13 +160,17 @@ if want brca; then
   sub "datasets/brca/05_macrophage_subsample/01_preprocess"
   run "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep1.R"
   run "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep2.R"
+  lsf "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep2_sub.sh"
   run "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep3.R"
+  lsf "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep3_sub.sh"
   run "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep4.R"
+  lsf "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep4_sub.sh"
   run "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep5.R"
+  lsf "datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep5_sub.sh"
 fi
 
 if want rms; then
-  say "01 preprocess :: RMS Mast607A (GEO GSE30978; Fig5, FigS8-S10)"
+  say "01 preprocess :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
   note "dataset-level preprocessing"
   sub "datasets/rms/01_preprocess"
   lsf "datasets/rms/01_preprocess/00_cellranger_arc_sub.sh"

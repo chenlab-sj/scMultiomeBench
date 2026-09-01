@@ -86,8 +86,9 @@ What each stage hands to the next:
 | 04 | stage 03 tables (+ `published_reference/` for two panels) | manuscript figures |
 
 Stage 04 is cheap: given the stage-03 metric tables it runs in minutes and needs no method
-environment (`results/` is empty in the current tree, so those tables come from each dataset's own
-`03_metrics/` working directory). Stages 02 and 03 are the expensive ones, and only stage 02 needs a GPU.
+environment. `results/` holds the collected copies of those tables; the plotting scripts themselves
+read each dataset's own `03_metrics/` working directory. Stages 02 and 03 are the expensive ones,
+and only stage 02 needs a GPU.
 
 ## Script counts per driver
 
@@ -96,12 +97,12 @@ environment (`results/` is empty in the current tree, so those tables come from 
 
 | dataset | 01 preprocess | 02 methods | 03 metrics | 04 figures |
 |---|---|---|---|---|
-| pbmc3k | 14 run | 51 run + 73 not run | 11 run + 12 not run | 8 run + 6 not run |
+| pbmc3k | 14 run | 52 run + 74 not run | 11 run + 12 not run | 8 run + 6 not run |
 | pbmc10k | 1 run | 27 run + 21 not run | 5 run + 4 not run | 1 run + 1 not run |
 | pbmc_parse | 5 run | 18 run + 20 not run | 5 run + 4 not run | 3 run + 2 not run |
 | bmmc_d1 | 2 run | 50 run + 64 not run | 15 run + 12 not run | 7 run + 2 not run |
-| brca | 7 run | 40 run + 55 not run | 8 run + 8 not run | 4 run + 1 not run |
-| rms | 5 run + 1 not run | 13 run + 38 not run | 10 run + 8 not run | 8 run + 1 not run |
+| brca | 7 run + 4 not run | 40 run + 55 not run | 8 run + 8 not run | 5 run + 1 not run |
+| rms | 5 run + 1 not run | 13 run + 38 not run | 8 run + 7 not run | 8 run + 1 not run |
 | summary | — | — | 1 run | 4 run + 1 not run |
 
 BMMC's stage 02 count includes the six `(batch)` variants — `BindSC_batch`, `MIDAS_batch`,
@@ -145,17 +146,21 @@ with placeholder defaults. Copy `config/config.local.sh.example` to `config/conf
 (gitignored) and set your real paths. R scripts read the same variables via `Sys.getenv()`, matching
 the pattern `peak_similarity.R` already used. Each driver sources `config/config.sh` on startup.
 
-This is the **intended** mechanism. At the time of writing, individual analysis scripts have not yet
-been swept for hard-coded absolute paths, so expect to find some and to have to edit them. Do not
-assume a script is portable because the driver that calls it sources the config.
+Absolute cluster paths have been scrubbed from every script. Shell scripts pick the config up
+automatically; `.py` and `.R` scripts instead carry literal `/path/to/...` placeholders at the top of
+the file, which you edit (or override via the environment variables the script reads with
+`Sys.getenv()`) before running one by hand. Do not assume a script is portable because the driver
+that calls it sources the config.
 
 ## Known gaps
 
-- **Fig S7, Fig 4C and Fig 5C have no generating script.** Each published panel predates every
-  candidate script that survives in this tree, so nothing in `04_make_figures.sh` reproduces them.
-  See `FIGURES.md`, *Known gaps*, for the evidence.
-- **Two large inputs are not in the repository.** `predicted_ataclabel_foxo1value.csv` (88.7 MB) and
-  `predicted_ataclabel_myod1value.csv` (18.1 MB) are gitignored for size and are required by the RMS
-  Fig S8/S9 pileup panels. Available from the authors on request.
+- **Large per-cell pileup inputs are not in the repository.** `predicted_ataclabel_foxo1value.csv`
+  (88.7 MB) and `predicted_ataclabel_myod1value.csv` (18.1 MB) are gitignored for size and are
+  required by the RMS Fig S8/S9 (and Fig 5C) pileup panels; the Fig S7 strips additionally need the
+  SJRHB013758_X2-side value tables, which are likewise not committed. All are available from the
+  authors on request.
+- **Fig S7 assembly is manual.** The three per-locus strip scripts under
+  `datasets/rms/04_figures/figS7_multiome_vs_annotation/` draw the panels; combining them into the
+  published page was done by hand, so no single script emits the composed figure.
 - **BRCA raw data is controlled access.** dbGaP `phs002371.v3.p1`; stages 01–04 for `brca` cannot be
   run without an approved data access request. Every other dataset is open.

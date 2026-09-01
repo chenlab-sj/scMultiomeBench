@@ -175,6 +175,9 @@ if want pbmc3k; then
   sub "datasets/pbmc3k/02_methods/Seurat_CCA"
   run "datasets/pbmc3k/02_methods/Seurat_CCA/pbmc3k_testall_seurat3.R"
   lsf "datasets/pbmc3k/02_methods/Seurat_CCA/pbmc3k_testall_seurat3_sub.sh"
+  sub "datasets/pbmc3k/02_methods/Seurat_WNN"
+  run "datasets/pbmc3k/02_methods/Seurat_WNN/pbmc3k_seurat4.R"
+  lsf "datasets/pbmc3k/02_methods/Seurat_WNN/pbmc3k_seurat4_sub.sh"
   sub "datasets/pbmc3k/02_methods/Seurat_CCA/rep2"
   run "datasets/pbmc3k/02_methods/Seurat_CCA/rep2/pbmc3k_testall_seurat3.R"
   lsf "datasets/pbmc3k/02_methods/Seurat_CCA/rep2/pbmc3k_testall_seurat3_sub.sh"
@@ -726,7 +729,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "02 methods :: RMS Mast607A (GEO GSE30978; Fig5, FigS8-S10)"
+  say "02 methods :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
   note "activate the method-specific conda env before each block"
   sub "datasets/rms/02_methods/BindSC"
   run "datasets/rms/02_methods/BindSC/01_run_bindsc.R"

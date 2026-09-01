@@ -1,0 +1,11 @@
+name: test_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - liulab-dfci
+  - r
+dependencies:
+  - python-igraph
+  - jupyterlab
+prefix: /path/to/conda/envs/test_env

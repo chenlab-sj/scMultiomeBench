@@ -60,7 +60,7 @@ curated methods.
 |---|---|---|---|
 | 4A (pairwise NMI, pbmc3k \| BRCA) | `datasets/brca/04_figures/plot_fig4_combined_brca_pbmc.py` | `nmi_df_7type.csv`, `sd_df_7type.csv` (BRCA, from `03_metrics/reproducibility/`); `nmi_df.csv`, `sd_df.csv` (pbmc3k, from `datasets/pbmc3k/03_metrics/reproducibility/00_reproduce_curated.py`) | brca + pbmc3k |
 | 4B (per-cell-type SD, pbmc3k \| BRCA) | same script — it draws all four subpanels in one row | same | brca + pbmc3k |
-| 4C (confusion matrices for Portal / Seurat(CCA) / scVI + cell-count bar) | **no generator in this repo** — see *Known gaps* | — | brca |
+| 4C (confusion matrices for Portal / Seurat(CCA) / scVI + cell-count bar) | `datasets/brca/04_figures/plot_fig4c_confusion.py` (ported from the original analysis notebook `macro_sub-Fig4C1.ipynb`; the published `Fig4C.pdf` is md5-identical to that notebook's output) | `rep_knn_k10_pred_label_7type.csv` (from `03_metrics/reproducibility/03_fig4_reproduce_7type.ipynb`) + `published_reference/brca/HT243B1-S1H4/label.csv` | brca |
 | 4D (macrophage subsampling) | `datasets/brca/05_macrophage_subsample/04_figures/plot_fig4d_macrophage.py` | `published_reference/brca/HT243B1-S1H4/knn_k10sub{0..5}_pred_accu.csv` (rep 1); `knn_k10sub{1..5}_pred_accu.csv` for reps 2–5 from `05_macrophage_subsample`; `new_methods_macro_accu.csv` from `05_macrophage_subsample/03_metrics/compute_new_methods_accu.py` | brca |
 
 Upstream for 4A/4B on the BRCA side: `datasets/brca/03_metrics/reproducibility/00_cobolt_nmi.py`,
@@ -71,10 +71,10 @@ Upstream for 4A/4B on the BRCA side: `datasets/brca/03_metrics/reproducibility/0
 Upstream for 4D: `datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep{1..5}.R`
 then the MaxFuse / MIDAS / scButterfly runs in that sub-experiment.
 
-Superseded, do not cite: `plot_fig4.py` (BRCA and pbmc3k preview plotters, still shipped because
-their drivers invoke them), `plot_fig4_manuscript_7type.py` (BRCA-only version of 4A/4B),
-`make_repro_fig.py` (slope charts, a different chart type that appears nowhere), and
-`macrophage_sub_fig4d.ipynb` (the scratch notebook behind 4D).
+Superseded, not included in this repository: `plot_fig4.py` (BRCA and pbmc3k preview plotters),
+`plot_fig4_manuscript_7type.py` (BRCA-only version of 4A/4B), `make_repro_fig.py` (slope charts, a
+different chart type that appears nowhere), and `macrophage_sub_fig4d.ipynb` (the scratch notebook
+behind 4D). They exist only in the pre-revision working directories.
 
 ### Fig 5 — RMS (Mast607A)
 
@@ -82,20 +82,19 @@ their drivers invoke them), `plot_fig4_manuscript_7type.py` (BRCA-only version o
 |---|---|---|---|
 | 5A (metrics matrix + ranking) | `datasets/rms/04_figures/fig5a/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `published_reference/rms/Mast607A/benchmark_matrix/{sum_metrics,celltype_metrics,sum_metrics_clean}.csv` and `knn_test/adj_atac_predaccu.csv` | rms |
 | 5B (Euclidean distance of predicted vs true coverage tracks) | `datasets/rms/04_figures/fig5b/plot_fig5b.py` | `published_reference/rms/Mast607A/knn_test/predicted_ataclabel_{myod1,foxo1}value.csv` (published methods) + `new_methods_{myod1,foxo1}value.csv` from `datasets/rms/03_metrics/04_compute_new_pileups.R` (new methods) | rms |
-| 5C (MYOD1 / FOXO1 pileup tracks, 7 rows: Annotation + 5 methods + Random) | **no generator in this repo** — see *Known gaps* | — | rms |
+| 5C (MYOD1 / FOXO1 pileup tracks, 7 rows: Annotation + 5 methods + Random) | `datasets/rms/04_figures/figS7_S9/plot_pileup_grid_2page.R` with the Fig 5C method selection — see note below | same inputs as Figs S8/S9 | rms |
 
 Upstream for 5A: `datasets/rms/03_metrics/00_prep_latents.py` → `01_compute_metrics.py` →
 `02_adjust_accuracy.py` → `03_peak_similarity.R`.
 
-**ATAC-precedes-RNA analysis (supports the Fig 5 text, not a lettered panel).** Census tags these
-`Fig5 (ATAC-precedes-RNA)`; they draw the pseudotime lag result, which is not one of the panels in
-the published Fig 5.
-
-| Script | Key inputs | Dataset |
-|---|---|---|
-| `datasets/rms/05_atac_precede_rna/04_figures/00_plot_lag.py` | per-bin ATAC/RNA tables from `03_metrics/00_dpt_pseudotime.py` + `01_region_atac_by_bin.R` | rms |
-| `datasets/rms/05_atac_precede_rna/04_figures/01_plot_percell.py` | same, per cell (binning-free cross-correlation lag) | rms |
-| `datasets/rms/05_atac_precede_rna/04_figures/02_scvelo_mapping.ipynb` | velocyto output (`03_metrics/02_run_velocyto_sub.sh`); scVelo latent time, DPT and CytoTRACE orderings | rms |
+**Fig 5C method selection.** Fig 5C is the same pileup pipeline and the same inputs as Figs S8/S9;
+only the method selection differs. To reproduce it, replace the `PAGES` list (lines 30–32 of
+`plot_pileup_grid_2page.R`) with the single entry
+`fig5c = c("scglue \n (multiome)", "Seurat \n (CCA)", "scVI", "scBridge", "Portal")` — the
+Annotation (top) and Random (bottom) rows are added automatically by `build_region()`, giving the
+published 7-row page. The original scripts carry this exact 7-row list as a superseded assignment
+(`plot_predpeak_final.R` line 185, `plot_predpeak_final_foxo1.R` line 180, in the pre-revision
+working directory), which is the fossil of the state that drew the published panel.
 
 ### Fig 6 — generalization to independently sequenced data
 
@@ -122,10 +121,11 @@ with `benchmark_metrics_lib.py` as the shared library. The six `(batch)` method 
 (BindSC_batch, MIDAS_batch, scJoint_batch, scVI_batch, scglue_batch, scglue_multiome_batch) enter
 here.
 
-**Known dependency issue:** `fig6_combined.py` imports `bmmc_crosssite_data`, `pbmc_data` and
-`plot_pbmc` from `make_r1_brca_pbmc_composite.py`, which the census marks DROP (it also built
-reviewer-response plots from the excluded HT137 / cross-donor matrices). The import must be
-vendored or the shared functions inlined before this script runs from a clean checkout.
+**Dependency note (resolved):** `fig6_combined.py` imports `bmmc_crosssite_data`, `pbmc_data` and
+`plot_pbmc` from `make_r1_brca_pbmc_composite.py`, which ships alongside it in
+`datasets/bmmc_d1/04_figures/`, so the import resolves from a clean checkout. That module also
+contains reviewer-response plotting code for the excluded HT137 / cross-donor matrices; only the
+three imported functions are used here.
 
 ### Fig 7 — cross-scenario summary
 
@@ -172,9 +172,9 @@ Upstream for S2C: `datasets/pbmc10k/01_preprocess/00_data_prep.R`, then
 `03_metrics/00_compute_metrics.py` → `01_adjust_accuracy.py` → `02_peak_similarity.R` →
 `03_compute_ktest_new_methods.py` → `04_compute_ktest_reverse.py`.
 
-Superseded, do not cite: `plot_ksens.py` (pbmc3k only), `plot_figS1a.py` (pbmc10k only) and
-`plot_figS1b.py` (the reverse RNA-label direction, which is not in Fig S2 at all). The script
-filenames still say "figS1" internally — that was the local working name for this figure.
+Superseded, not included in this repository: `plot_ksens.py` (pbmc3k only), `plot_figS1a.py`
+(pbmc10k only) and `plot_figS1b.py` (the reverse RNA-label direction, which is not in Fig S2 at
+all). "figS1" was the local working name for this figure in the pre-revision directories.
 
 ### Fig S3 — Signac vs ArchR gene activity
 
@@ -218,10 +218,20 @@ set by `plot_metrics_matrix_sub.sh`). Upstream: `datasets/brca/01_preprocess/00_
 
 ### Fig S7 — MYOD1 / FOXO1 / MEOX2 multiome vs annotation tracks
 
-**No generator in this repository.** The published `FigS7.jpg` is dated May 2025, roughly fourteen
-months before either RMS pileup script was written, and its layout (multiome vs annotation only,
-no method rows, three loci) is not what either script draws. It comes from the original
-pre-revision analysis, whose working directory is not part of this repo. The two pileup scripts in
+Recovered from the original pre-revision analysis directory (2026-08-31). One script per locus;
+each draws the two-row (Multiome vs Annotation) pileup strip for its locus, faceted over the three
+myogenic cell types, and the three strips were assembled into the published figure manually. The
+scATAC side is the RMS sample **SJRHB013758_X2**; the Multiome row comes from the paired Mast607A
+data.
+
+| Panel | Script | Key inputs | Dataset |
+|---|---|---|---|
+| S7, MYOD1 strip | `datasets/rms/04_figures/figS7_multiome_vs_annotation/plot_predpeak_final_v2.R` | `SJRHB013758_X2/knn_test/{knn_k10_pred_label,knn_k10_pred_accu,predicted_ataclabel_myod1value}.csv`; `SJRHB013758_X2_clusters.csv`; Mast607A `lca_label.csv` + `predicted_ataclabel_myod1value.csv` | rms |
+| S7, FOXO1 strip | `.../plot_predpeak_final_foxo1_v2.R` | same set with the `foxo1` value tables | rms |
+| S7, MEOX2 strip | `.../plot_predpeak_final_meox2_v2.R` | same set with the `meox2` value tables | rms |
+
+The per-cell `predicted_ataclabel_*value.csv` inputs are not committed (size) and are **available
+from the authors on request**, like the Fig S8/S9 inputs. The two pileup scripts in
 `datasets/rms/04_figures/figS7_S9/` are named for the S7–S9 block but generate S8 and S9 only.
 
 ### Fig S8 and Fig S9 — RMS pileup grids (14 methods, two pages)
@@ -244,9 +254,9 @@ Inputs:
 > `predicted_ataclabel_myod1value.csv` (18.1 MB). They are required for Fig 5B, Fig S8 and Fig S9.
 > **Available from the authors on request.**
 
-Superseded, do not cite: `plot_figS6.R`, the single-page 14-row version. It was too tall to
-publish and was split into the two-page script three days later; the two-page script reuses its
-label and track recipe.
+Superseded, not included in this repository: `plot_figS6.R`, the single-page 14-row version. It
+was too tall to publish and was split into the two-page script three days later; the two-page
+script reuses its label and track recipe.
 
 ### Fig S10 — RMS reproducibility
 
@@ -254,9 +264,9 @@ label and track recipe.
 |---|---|---|---|
 | S10 (NMI boxplot + per-cell-type SD, combined) | `datasets/rms/04_figures/figS10/plot_figS10_combined.py` | `nmi_df.csv`, `sd_df.csv` from `datasets/rms/03_metrics/reproducibility/00_pick3_reps.py` → `01_select_pick3_triplets.py` → `02_reproduce_metrics.py` | rms |
 
-Superseded, do not cite: `plot_fig4_manuscript.py` (emits the two panels as separate PDFs; merged
-six minutes later into the published single figure) and `plot_fig4.py` (draft preview plotter,
-shipped only because the canonical reproducibility driver invokes it).
+Superseded, not included in this repository: `plot_fig4_manuscript.py` (emits the two panels as
+separate PDFs; merged six minutes later into the published single figure) and `plot_fig4.py`
+(draft preview plotter). Both exist only in the pre-revision working directories.
 
 ### Fig S11 — BMMC supplementary matrices
 
@@ -284,15 +294,15 @@ Preprocessing: `01_preprocess/00_data_prep.R` → `01_azimuth_annotate_parse.R` 
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| S13A (runtime and memory vs test-cell count) | `summary/04_figures/plot_figS13_scalability.R` | `summary/runtime_memory_sel_plus.csv` | all four |
-| S13B (weighted rank over the 50–90% weight range) | `summary/04_figures/plot_figS13_weighting_rank.R` | `summary/weighting_sensitivity_ranks.csv`, written by `summary/03_metrics/00_weighting_sensitivity.R` | all four |
+| S13A (runtime and memory vs test-cell count) | `summary/04_figures/plot_figS13_scalability.R` | `results/summary/runtime_memory_sel_plus.csv` | all four |
+| S13B (weighted rank over the 50–90% weight range) | `summary/04_figures/plot_figS13_weighting_rank.R` | `results/summary/weighting_sensitivity_ranks.csv` (shipped copy; regenerated by `summary/03_metrics/00_weighting_sensitivity.R`) | all four |
 
 `00_weighting_sensitivity.R` reads the four datasets' `sum_metrics_clean.csv`,
 `runtime_memory_sel_plus.csv` and `new_methods_grouped.csv`.
 
-Superseded, do not cite: `plot_weighting_sensitivity_integer.R`. Its y-axis reads "Final rank
-(1 = best)" with integer stepped lines; the published S13B reads "Weighted rank (lower = better)"
-with continuous linear ranks, which is the shipped script's label verbatim.
+Superseded, not included in this repository: `plot_weighting_sensitivity_integer.R`. Its y-axis
+reads "Final rank (1 = best)" with integer stepped lines; the published S13B reads "Weighted rank
+(lower = better)" with continuous linear ranks, which is the shipped script's label verbatim.
 
 ---
 
@@ -308,19 +318,18 @@ Writes `tableS4_batch_correction.csv`.
 
 ## Known gaps
 
-Three published panels have no generating script in this repository. In each case the published
-image predates the revision-era scripts and the panel's content does not match what any shipped
-script draws, so it came from the original pre-revision analysis directory, which is not part of
-this repo.
+The three panels that previously had no generating script here were resolved on 2026-08-31 by
+recovering the originals from the pre-revision analysis directory:
 
-| Figure | What is missing | Evidence |
-|---|---|---|
-| Fig S7 | the whole figure | `FigS7.jpg` is dated May 2025, ~14 months before both RMS pileup scripts; its layout is multiome vs annotation over three loci (MYOD1 / FOXO1 / MEOX2) with no method rows, which neither pileup script produces |
-| Fig 4C | the 3-method confusion grid (Portal, Seurat(CCA), scVI) with the cell-count bar | the shipped confusion plotter (`plot_figS4_S5_confusion.py`) draws the 14-method triplicate grids of Fig S4/S5 in a different style; the Fig 4C asset predates the Fig 4 assembly and no census entry claims it |
-| Fig 5C | the MYOD1 / FOXO1 pileup panel for Annotation + scglue(multiome), Seurat(CCA), scVI, scBridge, Portal + Random | the shipped pileup script draws the 14-method two-page grid that became Fig S8/S9, on a different method selection; the superseded single-page script's own "selected" subset is a different method list again |
+| Figure | Resolution |
+|---|---|
+| Fig S7 | the three per-locus strip scripts now ship in `datasets/rms/04_figures/figS7_multiome_vs_annotation/`; the published figure is a manual assembly of their outputs |
+| Fig 4C | ported to `datasets/brca/04_figures/plot_fig4c_confusion.py` from the original notebook, whose `Fig4C.pdf` output is md5-identical to the published asset |
+| Fig 5C | same script and inputs as Figs S8/S9 (`figS7_S9/plot_pileup_grid_2page.R`) with the 7-row method selection documented under Fig 5 above |
 
-Fig 5C and Fig S8/S9 come from the same pileup pipeline and the same inputs; only the method
-selection differs.
+Remaining caveats: the Fig S7 and Fig S8/S9 per-cell pileup inputs are not committed (size;
+available from the authors on request), and the Fig S7 figure assembly itself (three strips into
+one page) was manual, so no single script emits the composed figure.
 
 ---
 
@@ -375,9 +384,9 @@ peak distance.
    `bsub` driver and sets the environment variables (for example `SPLICE_PUBLISHED`) that the
    script expects. Read the wrapper before running the script by hand.
 
-**Status note.** Path scrubbing has not been applied to the script bodies yet. Many scripts still
-contain absolute paths from the authors' cluster and mount points. The `config/` convention
-described above is the intended mechanism — it follows the pattern the original
-`peak_similarity.R` already used — but until the scrub pass lands, expect to edit hard-coded paths
-in individual scripts. Treat this file as the map of what generates what, not as a claim that
-every script runs unmodified from a fresh checkout.
+**Status note.** Absolute cluster paths have been scrubbed from every script. Shell scripts source
+`config/config.sh`; `.py` and `.R` scripts carry literal `/path/to/...` placeholders at the top of
+the file rather than live config lookups, so edit that placeholder block (or set the matching
+environment variables where the script reads them via `Sys.getenv()`) before running one by hand.
+Scripts are syntax-checked but were not re-executed after scrubbing. Treat this file as the map of
+what generates what, not as a claim that every script runs unmodified from a fresh checkout.

@@ -161,6 +161,7 @@ if want brca; then
   note "plot_metrics_matrix.R (FigS6) is the other splice site; its _sub.sh sets SPLICE_PUBLISHED=1"
   sub "datasets/brca/04_figures"
   run "datasets/brca/04_figures/plot_fig4_combined_brca_pbmc.py"
+  run "datasets/brca/04_figures/plot_fig4c_confusion.py"
   run "datasets/brca/04_figures/plot_figS4_S5_confusion.py"
   run "datasets/brca/04_figures/plot_metrics_matrix.R"
   lsf "datasets/brca/04_figures/plot_metrics_matrix_sub.sh"
@@ -169,9 +170,9 @@ if want brca; then
 fi
 
 if want rms; then
-  say "04 figures :: RMS Mast607A (GEO GSE30978; Fig5, FigS8-S10)"
+  say "04 figures :: RMS Mast607A (GEO GSE209784; Fig5, FigS7-S10)"
   note "figS7_S9/plot_pileup_grid_2page.R produces FigS8-S9 and needs the two gitignored predicted_ataclabel_*.csv files"
-  note "no script in this tree produces FigS7"
+  note "figS7_multiome_vs_annotation/ draws the three FigS7 strips (MYOD1/FOXO1/MEOX2), assembled manually"
   sub "datasets/rms/04_figures/fig5a"
   run "datasets/rms/04_figures/fig5a/plot_metrics_matrix.R"
   lsf "datasets/rms/04_figures/fig5a/plot_metrics_matrix_sub.sh"
@@ -181,12 +182,12 @@ if want rms; then
   run "datasets/rms/04_figures/figS10/plot_figS10_combined.py"
   sub "datasets/rms/04_figures/figS7_S9"
   run "datasets/rms/04_figures/figS7_S9/plot_pileup_grid_2page.R"
+  sub "datasets/rms/04_figures/figS7_multiome_vs_annotation"
+  run "datasets/rms/04_figures/figS7_multiome_vs_annotation/plot_predpeak_final_v2.R"
+  run "datasets/rms/04_figures/figS7_multiome_vs_annotation/plot_predpeak_final_foxo1_v2.R"
+  run "datasets/rms/04_figures/figS7_multiome_vs_annotation/plot_predpeak_final_meox2_v2.R"
   sub "datasets/rms/04_figures/label_validation"
   run "datasets/rms/04_figures/label_validation/plot_marker_label_validation.R"
-  sub "datasets/rms/05_atac_precede_rna/04_figures"
-  run "datasets/rms/05_atac_precede_rna/04_figures/00_plot_lag.py"
-  run "datasets/rms/05_atac_precede_rna/04_figures/01_plot_percell.py"
-  run "datasets/rms/05_atac_precede_rna/04_figures/02_scvelo_mapping.ipynb"
 fi
 
 if want summary; then

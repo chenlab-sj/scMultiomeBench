@@ -15,7 +15,7 @@ library(reticulate); use_python("~/.conda/envs/seurat4/bin/python")
 library(Seurat); library(Signac); library(Matrix)
 library(EnsDb.Hsapiens.v86); library(anndata)
 
-## ---- inputs (confirm the fragments path; it lives on clusterhome, not in Data/) ----
+## ---- inputs (confirm the fragments path; on the original cluster it lived outside the data root) ----
 DATA   <- "/path/to/multiomeBench/pbmc/pbmc3k/Data"
 TEST_H5 <- file.path(DATA, "pbmc_granulocyte_sorted_3k_filtered_feature_bc_matrix_test.h5")
 FRAG    <- "/path/to/data/pbmc3k/pbmc_granulocyte_sorted_3k_atac_fragments.tsv.gz"  # <-- confirm

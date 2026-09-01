@@ -1,5 +1,9 @@
 # NOTE: paths below are placeholders. See config/config.R and the README
 # for the roots you must set (DATA_ROOT, PROJECT_ROOT, TOOLS_ROOT, REF_ROOT).
+# NOTE: "HT514B1-S1H3" in the paths below is a historical folder name on the
+# original cluster that held COPIES of HT243B1-S1H4 files (see the HT243-named
+# filenames inside it). The data are HT243B1-S1H4 -- map these paths to
+# $DATA_ROOT/brca/HT243B1-S1H4/. No HT514 data is used anywhere in this benchmark.
 library(Seurat)
 library(Signac)
 library(EnsDb.Hsapiens.v86)
