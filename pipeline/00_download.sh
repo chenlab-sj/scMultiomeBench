@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench -- pipeline stage 0: obtain the raw datasets
+# scMultiomeBench -- pipeline stage 0: obtain the raw datasets
 #
 # WHAT THIS IS
 #   A thin driver that records where each benchmark dataset comes from and, if
@@ -20,11 +20,12 @@
 #   datasets: pbmc3k pbmc10k pbmc_parse bmmc_d1 brca rms
 #
 # STATE OF THIS STAGE
-#   00_download/ holds one fetch script per open dataset (download_<dataset>.sh).
-#   The 10x PBMC scripts download directly; the Parse, BMMC and RMS scripts
-#   verify the expected layout and document the manual route where a stable
-#   direct URL or a scriptable pipeline does not exist. This driver runs them
-#   in filename order and then prints the accession notes below.
+#   00_download/ holds one script per dataset (download_<dataset>.sh). The 10x
+#   PBMC scripts download directly; the Parse, BMMC and RMS scripts verify the
+#   expected layout and document the manual route where a stable direct URL or
+#   a scriptable pipeline does not exist; the BRCA script only verifies and
+#   prints the controlled-access route (dbGaP + Synapse -- it cannot fetch).
+#   This driver runs them in filename order, then prints the accession notes.
 #
 # PATHS
 #   Sourced from ../config/config.sh, which ships PLACEHOLDER defaults
@@ -135,7 +136,7 @@ if want brca; then
   note "  HT263B1-S1H1  -- the paired multiome TRAINING sample for HT243."
   note "                   Synapse syn53214683 (RNA) / syn53215774 (ATAC)"
   manual "obtain dbGaP approval for phs002371.v3.p1, then download the four Synapse objects above"
-  manual "place them under \${DATA_ROOT}/brca/"
+  manual "place them under \${DATA_ROOT}/HTAN/ -- 00_download/download_brca.sh verifies the layout"
 fi
 
 if want rms; then

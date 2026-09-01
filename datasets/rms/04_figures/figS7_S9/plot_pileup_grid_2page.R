@@ -14,7 +14,7 @@ mypalette <- c("#1F77B4", "#FF7F0E", "#2CA02C")   # Mesoderm, Myoblast, Myocyte
 CTS <- c("Mesoderm", "Myoblast", "Myocyte")
 
 G   <- "/path/to/multiomeBench"
-KNN <- file.path(G, "RMS/benchmark/old/Mast607A/knn_test")
+KNN <- file.path(G, "results/rms/published_reference/Mast607A/knn_test")
 NEW <- file.path(G, "RMS/benchmark/fig5b")
 S4  <- file.path(G, "RMS/benchmark/figS4a")
 OUT <- file.path(G, "RMS/benchmark/figS6")

@@ -12,6 +12,13 @@ indir  <- ifelse(length(args) >= 1, args[1], ".")
 outdir <- ifelse(length(args) >= 2, args[2], indir)
 p <- function(f) file.path(indir, f)
 
+## Single-file mode (default): load the shipped final matrix and plot directly.
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the SPLICE_PUBLISHED splice).
+matrix_csv <- p("metrics_matrix.csv")
+if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
+  mat <- read.csv(matrix_csv, check.names = FALSE)  # mirrors write.csv(mat, ..., row.names = FALSE)
+} else {
+
 ## assemble the 9 per-method Fig2B columns from the 4 source CSVs (sum / celltype / accu / peak)
 assemble9 <- function(sum_f, ct_f, accu_f, peak_f, peak_col = "method", remap = FALSE) {
   sm <- read.csv(sum_f)                                             # method, asw, omics_asw, ami, ari, ks.statistic
@@ -35,7 +42,7 @@ new9 <- assemble9(p("sum_metrics.csv"), p("celltype_metrics.csv"),
 ## methods from this run, then re-rank. Avoids reviewer questions about slightly-changed numbers.
 ## (Conos is in the published set, so its value comes from the publication -- no need to recompute.)
 ## Set SPLICE_PUBLISHED=0 to instead score every method from this run.
-if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
+if (Sys.getenv("SPLICE_PUBLISHED", "0") == "1") {  # published figure used 0; splice branch is dead code kept for provenance
   bm <- file.path(indir, "..")                                      # benchmark/ (parent of metrics/)
   pub9 <- assemble9(file.path(bm, "metrics/sum_metrics.csv"),
                     file.path(bm, "old/pbmc3k/benchmark_matrix/celltype_metrics.csv"),
@@ -71,6 +78,8 @@ mat <- combined %>%
          ks_inter_celltype_mean, average_accu, peakdist_adj, score, Rank) %>%
   mutate_at(vars(-c(Rank, method)), round, digits = 2) %>%
   arrange(Rank)
+
+}  ## end REBUILD_MATRIX else-branch (assembly)
 
 ## grouped scores (sum_metrics_clean.csv) -- kept for the cross-dataset summary
 mat %>%

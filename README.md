@@ -1,4 +1,4 @@
-# multiomeBench
+# scMultiomeBench
 
 Code and processed results for a benchmark of single-cell RNA + ATAC integration methods,
 published in *Genomics, Proteomics & Bioinformatics* (GPB).
@@ -51,13 +51,11 @@ and others a 6-metric matrix. KNN label transfer uses k = 10, cosine distance, d
 ## 2. Repository map
 
 ```
-multiomeBench/
+scMultiomeBench/
 ├── config/               Path configuration (config.sh, config.yaml, config.R) — see Quick start
 ├── envs/                 Conda/R environment specifications and per-method setup scripts
-├── common/               Vendored helpers shared across datasets (benchmark_fun.py,
-│                         0_create10x_datafmt.R, peak_similarity/export_groupbwg.R,
-│                         SJRHB013758_X2/plot_predpeak/plot_regionpeak_fun.R) plus the small
-│                         shared tables some metric scripts read through BENCHMARK_FUN_DIR
+├── common/               Vendored helpers + one shared annotation table, reached through
+│                         BENCHMARK_FUN_DIR — see common/README.md for what reads each file
 ├── 00_download/          Retrieval of the raw data; accessions and access terms are in DATA.md
 ├── datasets/             One directory per dataset; the four-stage pipeline lives here
 │   ├── pbmc3k/           primary benchmark, 23 method configurations (+ 05_geneactivity_archr)
@@ -69,18 +67,19 @@ multiomeBench/
 ├── summary/              Cross-dataset analyses: composite-score weighting sensitivity (03_metrics),
 │                         Fig 7 summary, Fig S13 scalability/weighting-rank, Fig S2A (04_figures)
 ├── pipeline/             Numbered driver scripts recording the order stages were executed in
-├── published_reference/  Previously published baseline values and ground-truth labels spliced by
-│                         two figures (see section 7)
-├── results/              Processed metric tables (the inputs every figure script reads)
+├── results/              Processed metric tables (the inputs every figure script reads);
+│                         each dataset dir has a published_reference/ subdirectory with the
+│                         previously published baseline values (see section 7)
 ├── figures/              Rendered figure output
 ├── LICENSE               MIT
 └── README.md
 ```
 
 `results/` holds the collected metric tables (see `results/README.md` for the figure each table set
-feeds), `figures/` the rendered manuscript panels, `00_download/` one fetch script per open dataset,
-`common/` the vendored helpers, and `envs/conda` the exported environments.
-`envs/<Method>/setup_*.sh` and `verify_*.sh` are present.
+feeds), `figures/` the rendered manuscript panels, `00_download/` one script per dataset (the five
+open ones fetch or verify; the BRCA one verifies the controlled-access layout only), `common/` the
+vendored helpers, and `envs/conda` the exported environments together with the `setup_*.sh` /
+`verify_*.sh` build scripts for the five hand-pinned method environments.
 
 Inside each dataset:
 
@@ -99,8 +98,8 @@ datasets/<dataset>/
 ## 3. Quick start
 
 ```bash
-git clone <repository-url> multiomeBench
-cd multiomeBench
+git clone <repository-url> scMultiomeBench
+cd scMultiomeBench
 
 # 1. Set your paths. config.local.sh is gitignored and is the only file you edit.
 cp config/config.local.sh.example config/config.local.sh
@@ -118,12 +117,14 @@ conda activate <name>
 | `DATA_ROOT` | Raw and intermediate data (h5ad / h5 / fragments) | `/path/to/data` |
 | `PROJECT_ROOT` | This checkout | the repository root |
 | `BENCHMARK_FUN_DIR` | Vendored helper libraries | `$PROJECT_ROOT/common` |
-| `PUBLISHED_REF` | Published baseline values | `$PROJECT_ROOT/published_reference` |
+| `PUBLISHED_REF` | Published baseline values (at `results/<dataset>/published_reference/`) | `$PROJECT_ROOT/results` |
 
 The same four values are mirrored in `config/config.yaml` for Python and `config/config.R` for R. R
 scripts read them via `Sys.getenv()` with placeholder defaults, following the pattern the original
 `peak_similarity.R` already used; Python scripts read `config.yaml`, overridable by environment
-variables of the same name.
+variables of the same name. (Inside individual scripts the literal placeholder root is spelled
+`/path/to/multiomeBench` — it predates the repository's rename to scMultiomeBench and simply means
+your checkout root, i.e. `PROJECT_ROOT`.)
 
 ## 4. How the pipeline is organised
 
@@ -163,8 +164,8 @@ required to redraw the figures: every plotting script in `datasets/*/04_figures/
 those processed tables, one directory per dataset named for the figure each table set feeds — see
 `results/README.md` for the index. (The plotting scripts themselves read each dataset's own
 `03_metrics/` working directory; the `results/` copies exist so every figure input is in the repo.)
-The published baseline tables the two splicing figures need are already present under
-`published_reference/`.
+The published baseline tables the two splicing figures need are already present under each
+dataset's `results/<dataset>/published_reference/` subdirectory.
 
 **`FIGURES.md` maps each manuscript figure and supplementary panel to the script that generates it**,
 together with the inputs that script needs. Start there: find your panel, run the script it names with
@@ -181,16 +182,17 @@ there is no single environment for the repository.
 | `envs/conda/<name>.full.yml` | Full solved export of the same environment, with exact build strings. Use to inspect or pin the versions that were actually run. |
 | `envs/conda/<name>.pip.txt` | `pip freeze` of the same environment, for packages installed outside conda. |
 | `envs/R/package_versions_seurat4.txt` | R version and package versions of the `seurat4` environment used by the R pipelines (Seurat/Signac preparation, Seurat CCA and WNN, Conos, peak similarity, plotting). The `seurat4` env is additionally exported as `envs/conda/seurat4*.yml`; recreate other details from the recorded versions. Note: Conos runs inside this R environment — the `concos` env named by its LSF submitter no longer exists and was never separately exported. |
-| `envs/<Method>/setup_*.sh`, `verify_*.sh` | Build and verification scripts for the five methods whose environments needed hand-pinning: MIDAS, MIRA, MaxFuse, Multigrate, scButterfly. Run `setup_*.sh` to build, `verify_*.sh` to confirm the install imports and runs. |
+| `envs/conda/setup_*.sh`, `verify_*.sh` | Build and verification scripts for the five methods whose environments needed hand-pinning: MIDAS, MIRA, MaxFuse, Multigrate, scButterfly. For these five, run `setup_*.sh` to build (a plain `conda env create -f` may fail or mis-solve — the scripts encode the required constraint pins and install order), then `verify_*.sh` to confirm the install imports and runs. |
 
-## 7. `published_reference/`
+## 7. The `published_reference/` tables
 
 Some figures do not recompute every value they display. Where the manuscript compares new results
 against numbers reported in a previous publication, the plotting script splices those previously
-published values into the matrix instead of regenerating them. `published_reference/` holds the 33 files
-(31 committed; two oversized RMS tables are gitignored, available on request — see section 8)
-those splices need — 30 published baseline tables and 3 ground-truth `label.csv` files — carved out of
-the original working directories so the affected figures can be rebuilt from this repository alone.
+published values into the matrix instead of regenerating them. Each dataset's
+`results/<dataset>/published_reference/` subdirectory holds those baselines — 33 files in total
+(31 committed; two oversized RMS tables are gitignored, available on request — see section 8):
+30 published baseline tables and 3 ground-truth `label.csv` files, carved out of the original
+working directories so the affected figures can be rebuilt from this repository alone.
 
 Two scripts actually perform a splice: the PBMC 3k **Fig 2B** metrics matrix
 (`datasets/pbmc3k/04_figures/fig2b/plot_metrics_matrix.R`) and the BRCA **Fig S6** metrics matrix
@@ -199,9 +201,9 @@ its original working directory was named `figS4a`, which is why the internal com
 Other scripts contain a splice branch that is never taken (their drivers set the splice flag off);
 those branches are dead code retained from the original scripts and can be ignored.
 
-Files here are inputs, not outputs of this repository. They are grouped by dataset
-(`published_reference/{pbmc3k,pbmc10k,bmmc_d1,brca,rms}/`) and reached through the `PUBLISHED_REF`
-configuration variable.
+These files are inputs, not outputs of this repository. They sit inside the dataset they belong to
+(`results/{pbmc3k,pbmc10k,bmmc_d1,brca,rms}/published_reference/`); the `PUBLISHED_REF`
+configuration variable points at `results/`.
 
 ## 8. Known limitations
 
@@ -227,7 +229,7 @@ configuration variable.
   input, check for a hard-coded path near the top before assuming the data is missing.
 * **The BRCA dataset is under controlled access.** BRCA figures cannot be reproduced from raw data
   without an approved dbGaP request for phs002371.v3.p1. Only aggregated BRCA values are carried in
-  this repository (the tables under `published_reference/brca/`); no BRCA object, fragment file or
+  this repository (the tables under `results/brca/published_reference/`); no BRCA object, fragment file or
   per-cell table may be redistributed.
 
 ## 9. Citation and license
@@ -235,7 +237,7 @@ configuration variable.
 If you use this code, please cite:
 
 > [Author list]. [Title]. *Genomics, Proteomics & Bioinformatics* (in press).
-> Code: https://github.com/<user>/multiomeBench
+> Code: https://github.com/chenlab-sj/scMultiomeBench
 
 Released under the MIT License. See `LICENSE`.
 

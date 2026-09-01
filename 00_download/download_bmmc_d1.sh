@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench 00_download :: BMMC s1d1 / s2d1 / s4d1 (open access)
+# scMultiomeBench 00_download :: BMMC s1d1 / s2d1 / s4d1 (open access)
 #
 # The BMMC arm cannot be fetched as ready-made files: the authors obtained raw
 # sequencing from NCBI SRA and reprocessed it with Cell Ranger ARC, and the

@@ -48,7 +48,8 @@ original working-directory names, uppercase and with an `NCBI_sra` level):
 $DATA_ROOT/
   pbmc3k/           pbmc10k/          pbmc_parse/
   BMMC/NCBI_sra/{s1d1,s2d1,s4d1}/outs/
-  brca/             RMS/<sample>/<sample>/outs/
+  HTAN/{HT243B1-S1H4,HT263B1-S1H1}/   (BRCA)
+  RMS/<sample>/<sample>/outs/
 ```
 
 > **Status note.** Absolute cluster paths have been scrubbed from every script. Shell scripts source
@@ -95,7 +96,7 @@ to `3k`; the split logic is otherwise identical.
 of MB.
 
 **Ground truth in this repo.** Cell-type labels and published baseline metric values for this dataset
-are carved out under `published_reference/pbmc3k/` (`benchmark_matrix/celltype_metrics.csv`,
+are carved out under `results/pbmc3k/published_reference/` (`benchmark_matrix/celltype_metrics.csv`,
 `metrics/sum_metrics.csv`, `knn_test/adj_atac_predaccu.csv`,
 `peak_similarity/peakdist_adj_random.csv`). The Fig 2B plotter is one of only two scripts that
 actually splices published values back in.
@@ -189,7 +190,7 @@ All downstream method runs therefore share one peak vocabulary.
 
 **Figures.** Fig 6A (with the `_batch` variants), Fig 6B, Fig S11, Table S4.
 
-**Ground truth in this repo.** `published_reference/bmmc_d1/label.csv`,
+**Ground truth in this repo.** `results/bmmc_d1/published_reference/label.csv`,
 `adj_atac_predaccu.csv`, `sum_metrics_clean.csv`, `benchmark_matrix/celltype_metrics2.csv`,
 `benchmark_matrix/sum_metrics_all.csv`.
 
@@ -233,11 +234,14 @@ This dataset is **not open**. Obtaining it takes two steps and cannot be scripte
    ```
 
    Place the results so that the layout matches what `00_data_prep.R` expects:
-   `$DATA_ROOT/brca/HT243B1-S1H4/<synapse_id>/<sample>.rds`.
+   `$DATA_ROOT/HTAN/HT243B1-S1H4/<synapse_id>/<sample>.rds` (and
+   `$DATA_ROOT/HTAN/HT263B1-S1H1/<synapse_id>/<sample>.rds` for the training sample) — note the
+   `HTAN/` directory name, kept from the original working layout. Run
+   `00_download/download_brca.sh` to verify the layout once everything is in place.
 
 **Redistribution.** Do not commit any BRCA object, fragment file, barcode list, or per-cell table to
 a public repository. The tables that *are* in this repo
-(`published_reference/brca/HT243B1-S1H4*/`) are aggregated metric values and de-identified cell-type
+(`results/brca/published_reference/HT243B1-S1H4*/`) are aggregated metric values and de-identified cell-type
 labels only.
 
 **Approximate size.** ~5 GB for the four `.rds` objects plus the fragments file.
@@ -289,7 +293,7 @@ tables those scripts read are not committed (size); they are available from the 
 like the Fig S8/S9 inputs. Fig 5C uses the same pileup code as Figs S8/S9 with a different method
 selection — see FIGURES.md.
 
-**Ground truth in this repo.** `published_reference/rms/Mast607A/` holds `label.csv`, the
+**Ground truth in this repo.** `results/rms/published_reference/Mast607A/` holds `label.csv`, the
 `benchmark_matrix/` metric tables and `knn_test/knn_k10_pred_accu.csv` /
 `knn_k10_pred_label.csv` / `adj_atac_predaccu.csv`.
 
@@ -301,8 +305,8 @@ selection — see FIGURES.md.
 |---|---|---|---|
 | Raw FASTQ, Cell Ranger `outs/`, fragment files, `.h5`, `.h5ad`, `.rds`, `.RData`, BAM, bigWig | **~250 GB total; largest single file 21.6 GB** | GitHub rejects files over 100 MB and this volume is not distributable through git at all | Sections 3–8 above; `00_download/` for the open datasets |
 | Per-method intermediate outputs (latent embeddings for every method × dataset × replicate, ArrowFiles, model checkpoints) | tens of GB | regenerable by rerunning `02_methods/`; not primary data | rerun the method scripts, or contact the authors |
-| `published_reference/rms/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv` | 88.7 MB | too large for a comfortable checkout | **available from the authors on request** |
-| `published_reference/rms/Mast607A/knn_test/predicted_ataclabel_myod1value.csv` | 18.1 MB | same | **available from the authors on request** |
+| `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv` | 88.7 MB | too large for a comfortable checkout | **available from the authors on request** |
+| `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_myod1value.csv` | 18.1 MB | same | **available from the authors on request** |
 
 The two `predicted_ataclabel_*` tables are per-cell FOXO1 and MYOD1 values keyed by KNN-predicted ATAC
 label; they are the direct inputs to **Fig S8 and Fig S9**. Every other RMS figure can be regenerated
@@ -312,7 +316,7 @@ The file-type exclusions are enforced by `.gitignore` (`*.h5`, `*.h5ad`, `*.rds`
 `*.tsv.gz`, `*.bam`, `*.bw`, `*.npy`, `ArrowFiles/`, …), which also blocks
 `config/config.local.sh` so that no local path map is ever published.
 
-**What *is* included**: the 33 files under `published_reference/` (31 committed; the two oversized
+**What *is* included**: the 33 published-baseline files under `results/<dataset>/published_reference/` (31 committed; the two oversized
 RMS tables above are gitignored and available on request) — per-dataset ground-truth `label.csv`
 tables and the published baseline metric values — every script under `datasets/`, `summary/`,
 `pipeline/` and `config/`, and the collected metric tables under `results/` (see
@@ -337,9 +341,10 @@ separately from this document; the contract they follow is:
 - Checksums, where the provider publishes them, are verified after download.
 - Nothing is unpacked into the repository tree — the repository and `DATA_ROOT` stay disjoint.
 
-**There is no download script for BRCA**, and there will not be one: the dbGaP + Synapse route in
-section 7 requires an authenticated, individually approved account and cannot be automated in a
-public script.
+**BRCA cannot be fetched by script**: the dbGaP + Synapse route in section 7 requires an
+authenticated, individually approved account and cannot be automated in a public script.
+`download_brca.sh` therefore only verifies that the expected `$DATA_ROOT/HTAN/` layout is in place
+and prints the access route — it downloads nothing.
 
 Downloads only fetch; they do not preprocess. After downloading, run the dataset's
 `01_preprocess/` scripts in numeric order to produce the integration inputs.

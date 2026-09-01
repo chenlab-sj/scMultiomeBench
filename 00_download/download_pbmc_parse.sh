@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench 00_download :: Parse PBMC (Parse Biosciences, open access)
+# scMultiomeBench 00_download :: Parse PBMC (Parse Biosciences, open access)
 #
 # The Parse Evercode WT Mini v3 PBMC dataset is distributed from a download
 # page rather than a stable direct URL, so this script cannot hard-code a

@@ -42,7 +42,7 @@ from make_r1_brca_pbmc_composite import bmmc_crosssite_data, pbmc_data, plot_pbm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D    = os.path.normpath(os.path.join(HERE, ".."))
-PUB  = os.path.join(D, "old", "BMMC_d1", "sum_metrics_clean.csv")
+PUB  = "/path/to/multiomeBench/results/bmmc_d1/published_reference/sum_metrics_clean.csv"
 
 # ---- font sizes (enlarged) ----
 FS_TICK, FS_FACET, FS_XMETH, FS_YLAB, FS_LEG, FS_AXIS, FS_LABEL, FS_CBAR, FS_LETTER = 17, 17, 17, 20, 17, 19, 16, 17, 23
@@ -60,39 +60,45 @@ FACETS = ["Biological diversity\npreservation", "Batch effects\ncorrection",
 
 
 def bmmc_scores():
-    sm = pd.read_csv(os.path.join(D, "sum_metrics.csv")); sm.columns = [c.strip('"') for c in sm.columns]
-    sm["method"] = sm["method"].astype(str).str.strip('"')
-    ct = pd.read_csv(os.path.join(D, "celltype_metrics.csv"))
-    ctm = ct.groupby("method").agg(ks_celltype_mean=("ks_celltype", "mean"),
-                                   ks_sample_mean=("ks_sample", "mean"),
-                                   ks_inter_celltype_mean=("ks_inter_celltype", "mean")).reset_index()
-    ac = pd.read_csv(os.path.join(D, "adj_atac_predaccu.csv")); ac = ac.rename(columns={ac.columns[0]: "method"})
-    ac = ac[["method", "average_accu"]]
-    pk = pd.read_csv(os.path.join(D, "peakdist.csv")); pk.columns = [c.strip('"') for c in pk.columns]
-    pk["method"] = pk["method"].astype(str).str.strip('"'); pk = pk[["method", "peakdist_adj"]]
-    raw = sm.merge(ctm, on="method").merge(ac, on="method").merge(pk, on="method")
-    raw[FACETS[0]] = (raw.ks_celltype_mean + raw.asw) / 2
-    raw[FACETS[1]] = (raw.ks_sample_mean + raw.sample_asw) / 2
-    raw[FACETS[2]] = (raw["ks.statistic"] + raw.omics_asw) / 2
-    raw[FACETS[3]] = ((raw.ari + raw.ami) / 2 + raw.ks_inter_celltype_mean
-                      + (raw.average_accu + raw.peakdist_adj) / 2) / 3
-    raw = raw.set_index("method")[FACETS]
-    pub = pd.read_csv(PUB).rename(columns={"Bio-conservation": FACETS[0], "Sample batch correction": FACETS[1],
-                                           "Omics gap reduction": FACETS[2], "Alignment accuracy": FACETS[3]})
-    pub = pub.set_index("method")[FACETS]
+    # Single-file mode (default): load the shipped final score frame and plot directly.
+    # Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+    scores_csv = os.path.join(D, "fig6_scores.csv")
+    if os.environ.get("REBUILD_MATRIX", "0") != "1" and os.path.exists(scores_csv):
+        tab = pd.read_csv(scores_csv)
+    else:
+        sm = pd.read_csv(os.path.join(D, "sum_metrics.csv")); sm.columns = [c.strip('"') for c in sm.columns]
+        sm["method"] = sm["method"].astype(str).str.strip('"')
+        ct = pd.read_csv(os.path.join(D, "celltype_metrics.csv"))
+        ctm = ct.groupby("method").agg(ks_celltype_mean=("ks_celltype", "mean"),
+                                       ks_sample_mean=("ks_sample", "mean"),
+                                       ks_inter_celltype_mean=("ks_inter_celltype", "mean")).reset_index()
+        ac = pd.read_csv(os.path.join(D, "adj_atac_predaccu.csv")); ac = ac.rename(columns={ac.columns[0]: "method"})
+        ac = ac[["method", "average_accu"]]
+        pk = pd.read_csv(os.path.join(D, "peakdist.csv")); pk.columns = [c.strip('"') for c in pk.columns]
+        pk["method"] = pk["method"].astype(str).str.strip('"'); pk = pk[["method", "peakdist_adj"]]
+        raw = sm.merge(ctm, on="method").merge(ac, on="method").merge(pk, on="method")
+        raw[FACETS[0]] = (raw.ks_celltype_mean + raw.asw) / 2
+        raw[FACETS[1]] = (raw.ks_sample_mean + raw.sample_asw) / 2
+        raw[FACETS[2]] = (raw["ks.statistic"] + raw.omics_asw) / 2
+        raw[FACETS[3]] = ((raw.ari + raw.ami) / 2 + raw.ks_inter_celltype_mean
+                          + (raw.average_accu + raw.peakdist_adj) / 2) / 3
+        raw = raw.set_index("method")[FACETS]
+        pub = pd.read_csv(PUB).rename(columns={"Bio-conservation": FACETS[0], "Sample batch correction": FACETS[1],
+                                               "Omics gap reduction": FACETS[2], "Alignment accuracy": FACETS[3]})
+        pub = pub.set_index("method")[FACETS]
 
-    def sc(m):
-        if m in raw.index: return raw.loc[m].to_dict()
-        if m in pub.index: return pub.loc[m].to_dict()
-        return None
-    rows = []
-    for base in SELECTED:
-        for setting, m in [("Default", base)] + ([("Batch-aware", BATCH[base])] if base in BATCH else []):
-            s = sc(m)
-            if s is None:
-                print("  skip missing:", m); continue
-            rows.append({"pipeline": base, "setting": setting, "overall": np.mean([s[f] for f in FACETS]), **s})
-    tab = pd.DataFrame(rows)
+        def sc(m):
+            if m in raw.index: return raw.loc[m].to_dict()
+            if m in pub.index: return pub.loc[m].to_dict()
+            return None
+        rows = []
+        for base in SELECTED:
+            for setting, m in [("Default", base)] + ([("Batch-aware", BATCH[base])] if base in BATCH else []):
+                s = sc(m)
+                if s is None:
+                    print("  skip missing:", m); continue
+                rows.append({"pipeline": base, "setting": setting, "overall": np.mean([s[f] for f in FACETS]), **s})
+        tab = pd.DataFrame(rows)
     order = (tab[tab.setting == "Default"].set_index("pipeline")["overall"]
              .sort_values(ascending=False).index.tolist())
     return tab, order

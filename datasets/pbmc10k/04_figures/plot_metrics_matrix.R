@@ -27,40 +27,47 @@ assemble9 <- function(sum_f, ct_f, accu_f, peak_f, peak_col = "method", remap = 
   sm %>% merge(ct, "method") %>% merge(ac, "method") %>% merge(pk, "method")
 }
 
-## this run's values (the new pipeline) for every method in indir/
-new9 <- assemble9(p("sum_metrics.csv"), p("celltype_metrics.csv"),
-                  p("adj_atac_predaccu.csv"), p("peakdist.csv"))
-
-## SPLICE (default ON): keep your PUBLISHED values for the original methods + add ONLY the new
-## methods from this run, then re-rank. Avoids reviewer questions about slightly-changed numbers.
-## (Conos is in the published set, so its value comes from the publication -- no need to recompute.)
-## Set SPLICE_PUBLISHED=0 to instead score every method from this run.
-if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
-  bm <- file.path(indir, "..")                                      # benchmark/ (parent of fig2b/)
-  pub9 <- assemble9(file.path(bm, "metrics/sum_metrics.csv"),
-                    file.path(bm, "old/pbmc3k/benchmark_matrix/celltype_metrics.csv"),
-                    file.path(bm, "knn_test/adj_atac_predaccu.csv"),
-                    file.path(bm, "old/peak_similarity/pbmc3k/peakdist_adj_random.csv"),
-                    peak_col = "Method.x", remap = TRUE)
-  added   <- new9 %>% filter(!method %in% pub9$method)
-  combined <- bind_rows(pub9, added)
-  message("SPLICE: ", nrow(pub9), " published + ", nrow(added), " new (",
-          paste(added$method, collapse = ", "), ") = ", nrow(combined), " methods")
+## Single-file mode (default): load the shipped final matrix and plot directly.
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+matrix_csv <- p("fig2b_matrix.csv")
+if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
+  mat <- read.csv(matrix_csv, check.names = FALSE)   # mirror the write call's options (row.names = FALSE)
 } else {
-  combined <- new9
-}
+  ## this run's values (the new pipeline) for every method in indir/
+  new9 <- assemble9(p("sum_metrics.csv"), p("celltype_metrics.csv"),
+                    p("adj_atac_predaccu.csv"), p("peakdist.csv"))
 
-mat <- combined %>%
-  mutate(score = (ks_celltype_mean + asw) / 2 +                       ## bio-conservation
-                 (ks.statistic + omics_asw) / 2 +                     ## omics gap reduction
-                 ((ari + ami) / 2 + ks_inter_celltype_mean +
-                    (average_accu + peakdist_adj) / 2) / 3) %>%       ## alignment accuracy
-  mutate(score = score / 3,
-         Rank  = rank(-score, ties.method = "first")) %>%
-  select(method, ks_celltype_mean, asw, ks.statistic, omics_asw, ari, ami,
-         ks_inter_celltype_mean, average_accu, peakdist_adj, score, Rank) %>%
-  mutate_at(vars(-c(Rank, method)), round, digits = 2) %>%
-  arrange(Rank)
+  ## SPLICE (default ON): keep your PUBLISHED values for the original methods + add ONLY the new
+  ## methods from this run, then re-rank. Avoids reviewer questions about slightly-changed numbers.
+  ## (Conos is in the published set, so its value comes from the publication -- no need to recompute.)
+  ## Set SPLICE_PUBLISHED=0 to instead score every method from this run.
+  if (Sys.getenv("SPLICE_PUBLISHED", "0") == "1") {  # published figure used 0; splice branch is dead code kept for provenance
+    bm <- file.path(indir, "..")                                      # benchmark/ (parent of fig2b/)
+    pub9 <- assemble9(file.path(bm, "metrics/sum_metrics.csv"),
+                      file.path(bm, "old/pbmc3k/benchmark_matrix/celltype_metrics.csv"),
+                      file.path(bm, "knn_test/adj_atac_predaccu.csv"),
+                      file.path(bm, "old/peak_similarity/pbmc3k/peakdist_adj_random.csv"),
+                      peak_col = "Method.x", remap = TRUE)
+    added   <- new9 %>% filter(!method %in% pub9$method)
+    combined <- bind_rows(pub9, added)
+    message("SPLICE: ", nrow(pub9), " published + ", nrow(added), " new (",
+            paste(added$method, collapse = ", "), ") = ", nrow(combined), " methods")
+  } else {
+    combined <- new9
+  }
+
+  mat <- combined %>%
+    mutate(score = (ks_celltype_mean + asw) / 2 +                       ## bio-conservation
+                   (ks.statistic + omics_asw) / 2 +                     ## omics gap reduction
+                   ((ari + ami) / 2 + ks_inter_celltype_mean +
+                      (average_accu + peakdist_adj) / 2) / 3) %>%       ## alignment accuracy
+    mutate(score = score / 3,
+           Rank  = rank(-score, ties.method = "first")) %>%
+    select(method, ks_celltype_mean, asw, ks.statistic, omics_asw, ari, ami,
+           ks_inter_celltype_mean, average_accu, peakdist_adj, score, Rank) %>%
+    mutate_at(vars(-c(Rank, method)), round, digits = 2) %>%
+    arrange(Rank)
+}
 
 ## grouped scores (sum_metrics_clean.csv) -- kept for the cross-dataset summary
 mat %>%

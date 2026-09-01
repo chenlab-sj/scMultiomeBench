@@ -15,7 +15,7 @@
 
 suppressPackageStartupMessages({ library(Seurat); library(dplyr); library(Matrix); library(reticulate) })
 use_python("~/.conda/envs/seurat4/bin/python"); library(anndata)
-source("/path/to/multiomeBench/common/pbmc10k/0_create10x_datafmt.R")   # sub_bc_matrix / sub_h5 (as 00_data_prep.R)
+source("/path/to/multiomeBench/common/0_create10x_datafmt.R")   # sub_bc_matrix / sub_h5 (as 00_data_prep.R)
 
 ROOT       <- "/path/to/multiomeBench"
 DONOR      <- "Donor_1"

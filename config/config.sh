@@ -1,5 +1,5 @@
 #!/bin/bash
-# multiomeBench path configuration (shell + R scripts read these).
+# scMultiomeBench path configuration (shell + R scripts read these).
 # Copy config.local.sh.example -> config.local.sh and set your real paths there.
 # config.local.sh is gitignored and must never be committed.
 
@@ -12,8 +12,9 @@
 # Vendored helper libraries (benchmark_fun.py, export_groupbwg.R, plot_regionpeak_fun.R)
 : "${BENCHMARK_FUN_DIR:=${PROJECT_ROOT}/common}"
 
-# Published reference values spliced into some figures (see published_reference/README.md)
-: "${PUBLISHED_REF:=${PROJECT_ROOT}/published_reference}"
+# Published baseline values spliced into some figures; one published_reference/
+# subdirectory per dataset under results/ (see results/README.md)
+: "${PUBLISHED_REF:=${PROJECT_ROOT}/results}"
 
 # Cloned method repositories (scJoint, scBridge, scMoMaT were run from git clones,
 # not installed packages). See README for the commits used.

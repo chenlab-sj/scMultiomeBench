@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench -- pipeline stage 3: metric computation
+# scMultiomeBench -- pipeline stage 3: metric computation
 #
 # WHAT THIS IS
 #   A thin driver that records the execution ORDER of the real analysis scripts.

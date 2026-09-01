@@ -219,7 +219,7 @@ def main():
     if not os.path.exists(out_dist):
         os.makedirs(out_dist)
     
-    cell_annot = os.path.join(res_dist, 'label.csv')
+    cell_annot = '/path/to/multiomeBench/results/pbmc3k/fig2b/label.csv'  # shipped ground-truth labels
     #cell_annot = '/path/to/data/RMS/SJRHB013758_X1_label_lca0328.csv'
     labels_annot= pd.read_csv(cell_annot,index_col=0)
     bc_test=labels_annot[labels_annot['modality']!="train multiomics"].index.values

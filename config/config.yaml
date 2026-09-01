@@ -1,9 +1,9 @@
-# multiomeBench path configuration (Python scripts read this).
+# scMultiomeBench path configuration (Python scripts read this).
 # Values may be overridden by the environment variables of the same name.
 data_root: /path/to/data
 project_root: .
 benchmark_fun_dir: ./common
-published_ref: ./published_reference
+published_ref: ./results   # baselines live at results/<dataset>/published_reference/
 # Cloned method repos (scJoint, scBridge, scMoMaT were run from git clones)
 tools_root: /path/to/tools
 # Genome annotation. NOTE: RMS is hg19 (GRCh37); other datasets are hg38.

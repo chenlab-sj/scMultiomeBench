@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench 00_download :: PBMC 3k (10x Genomics, open access)
+# scMultiomeBench 00_download :: PBMC 3k (10x Genomics, open access)
 #
 # Fetches the inputs that datasets/pbmc3k/01_preprocess/ reads, into
 # $DATA_ROOT/pbmc3k/, keeping the provider's filenames. Idempotent: a file

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench -- pipeline stage 2: integration method runs
+# scMultiomeBench -- pipeline stage 2: integration method runs
 #
 # WHAT THIS IS
 #   A thin driver that records the execution ORDER of the real analysis scripts.

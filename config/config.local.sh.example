@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copy to config.local.sh and edit. Gitignored - never committed.
 DATA_ROOT=/your/data/root
-PROJECT_ROOT=/your/checkout/of/multiomeBench
+PROJECT_ROOT=/your/checkout/of/scMultiomeBench
 TOOLS_ROOT=/your/clones/of/scJoint/scBridge/scMoMaT
 REF_ROOT=/your/genome/references

@@ -253,7 +253,7 @@ write_h5ad(atac_gene, paste0(out.dir,"pbmc3k_test_atac_gene.h5ad"))
 
 ########################################################
 ## save as 10X multiomic dir
-source("/path/to/multiomeBench/common/pbmc10k/0_create10x_datafmt.R")
+source("/path/to/multiomeBench/common/0_create10x_datafmt.R")
 train_features.file <-"/path/to/data/pbmc3k/filtered_feature_bc_matrix/features.tsv"
 train_feature <- read.csv(train_features.file, sep = "\t", header = FALSE)
 # parse_features.file <-'/path/to/multiomeBench/pbmc_parse/data/all_genes.csv'

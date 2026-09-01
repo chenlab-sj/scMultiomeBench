@@ -64,7 +64,7 @@ write.csv(celltype_adj, paste0(data2.dir,"muti_celltype.csv"),row.names = FALSE)
 ############################################
 ## from training data
 newtest_dir <-'/path/to/data/HTAN/HT263B1-S1H1_train_HT243_S1H4/'
-source("/path/to/multiomeBench/common/pbmc10k/0_create10x_datafmt.R")
+source("/path/to/multiomeBench/common/0_create10x_datafmt.R")
 library(dplyr)
 train.dir <-"/path/to/data/HTAN/HT263B1-S1H1/"
 train_celltype <- read.csv(paste0(train.dir,"muti_celltype.csv"))
@@ -130,7 +130,7 @@ test.frag_counts <- FeatureMatrix(
 
 
 #######################################################################
-source("/path/to/multiomeBench/common/pbmc10k/0_create10x_datafmt.R")
+source("/path/to/multiomeBench/common/0_create10x_datafmt.R")
 library(dplyr)
 train_features.file <- paste0(data.dir,"syn53215775/HT235B1-S1H1-features.tsv")
 train_feature <- read.csv(train_features.file, sep = "\t", header = FALSE)

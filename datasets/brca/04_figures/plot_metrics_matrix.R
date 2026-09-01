@@ -12,60 +12,69 @@ indir  <- ifelse(length(args) >= 1, args[1], ".")
 outdir <- ifelse(length(args) >= 2, args[2], indir)
 p <- function(f) file.path(indir, f)
 
-## assemble the 9 per-method Fig2B columns from the 4 source CSVs (sum / celltype / accu / peak)
-assemble9 <- function(sum_f, ct_f, accu_f, peak_f, peak_col = "method", remap = FALSE) {
-  sm <- read.csv(sum_f)                                             # method, asw, omics_asw, ami, ari, ks.statistic
-  ct <- read.csv(ct_f) %>% group_by(method) %>%                     # per-celltype -> means
-    summarise(ks_celltype_mean = mean(ks_celltype),
-              ks_inter_celltype_mean = mean(ks_inter_celltype), .groups = "drop")
-  ac <- read.csv(accu_f) %>% rename(method = 1) %>%                 # method + average_accu
-    select(method, average_accu) %>% filter(method != "random_atac")
-  pk <- read.csv(peak_f); pk$method <- pk[[peak_col]]               # method + peakdist_adj
-  if (remap) pk$method <- recode(pk$method, "Seurat.CCA." = "Seurat(CCA)",
-                                 "Seurat.WNN." = "Seurat(WNN)", "scglue.multiome." = "scglue(multiome)")
-  pk <- pk %>% filter(method != "random") %>% select(method, peakdist_adj)
-  sm %>% merge(ct, "method") %>% merge(ac, "method") %>% merge(pk, "method")
-}
-
-## this run's values for the NEW methods (MIDAS/MaxFuse/scButterfly), on the count>100 "major"
-## cell-type basis: major/ = 00_compute_metrics.py run against label_major.csv (03_major_recompute_sub.sh).
-## Peak uses the MIN_GROUP>20 (predicted cells per type) corrected peakdist.csv.
-new9 <- assemble9(p("major/sum_metrics.csv"), p("major/celltype_metrics.csv"),
-                  p("major/adj_atac_predaccu.csv"), p("peakdist.csv"))
-
-## SPLICE (default ON): the OLD methods keep their ORIGINAL published figS4a values; only the NEW
-## methods (not in the published set) are added from this run, then everything is re-ranked together.
-## Published source = the ORIGINAL HT243 figS4a (12 methods incl MinNet): old/HT243B1-S1H4_adj/.
-## The old peak values live in old/HT243B1-S1H4_adj/peakdist_adj_random.csv (Method.x + peakdist_adj,
-## mangled names -> remap). Set SPLICE_PUBLISHED=0 to instead score every method from this run.
-if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
-  bm  <- file.path(indir, "..")                                    # benchmark/ (parent of figS4a/)
-  old <- file.path(bm, "old/HT243B1-S1H4_adj")                     # ORIGINAL figS4a (HT243) published values
-  pub9 <- assemble9(file.path(old, "benchmark_matrix/sum_metrics.csv"),
-                    file.path(old, "benchmark_matrix/celltype_metrics.csv"),
-                    file.path(old, "knn_test/adj_atac_predaccu.csv"),
-                    file.path(old, "peakdist_adj_random.csv"),     # <-- old HT243 peak (drop this file here)
-                    peak_col = "Method.x", remap = TRUE)
-  pub9 <- pub9 %>% filter(method != "MinNet")                      # revised figS4a excludes MinNet
-  added   <- new9 %>% filter(!method %in% pub9$method)
-  combined <- bind_rows(pub9, added)
-  message("SPLICE: ", nrow(pub9), " published + ", nrow(added), " new (",
-          paste(added$method, collapse = ", "), ") = ", nrow(combined), " methods")
+## Single-file mode (default): load the shipped final matrix and plot directly.
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+## NOTE the loaded matrix keeps its published score/Rank columns: recomputing them from the
+## rounded values would swap the scglue / scglue(multiome) tie (ranks 2/3), so we do not.
+matrix_csv <- p("fig2b_matrix.csv")
+if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
+  mat <- read.csv(matrix_csv, check.names = FALSE)   # written below with row.names = FALSE
 } else {
-  combined <- new9
-}
+  ## assemble the 9 per-method Fig2B columns from the 4 source CSVs (sum / celltype / accu / peak)
+  assemble9 <- function(sum_f, ct_f, accu_f, peak_f, peak_col = "method", remap = FALSE) {
+    sm <- read.csv(sum_f)                                             # method, asw, omics_asw, ami, ari, ks.statistic
+    ct <- read.csv(ct_f) %>% group_by(method) %>%                     # per-celltype -> means
+      summarise(ks_celltype_mean = mean(ks_celltype),
+                ks_inter_celltype_mean = mean(ks_inter_celltype), .groups = "drop")
+    ac <- read.csv(accu_f) %>% rename(method = 1) %>%                 # method + average_accu
+      select(method, average_accu) %>% filter(method != "random_atac")
+    pk <- read.csv(peak_f); pk$method <- pk[[peak_col]]               # method + peakdist_adj
+    if (remap) pk$method <- recode(pk$method, "Seurat.CCA." = "Seurat(CCA)",
+                                   "Seurat.WNN." = "Seurat(WNN)", "scglue.multiome." = "scglue(multiome)")
+    pk <- pk %>% filter(method != "random") %>% select(method, peakdist_adj)
+    sm %>% merge(ct, "method") %>% merge(ac, "method") %>% merge(pk, "method")
+  }
 
-mat <- combined %>%
-  mutate(score = (ks_celltype_mean + asw) / 2 +                       ## bio-conservation
-                 (ks.statistic + omics_asw) / 2 +                     ## omics gap reduction
-                 ((ari + ami) / 2 + ks_inter_celltype_mean +
-                    (average_accu + peakdist_adj) / 2) / 3) %>%       ## alignment accuracy
-  mutate(score = score / 3,
-         Rank  = rank(-score, ties.method = "first")) %>%
-  select(method, ks_celltype_mean, asw, ks.statistic, omics_asw, ari, ami,
-         ks_inter_celltype_mean, average_accu, peakdist_adj, score, Rank) %>%
-  mutate_at(vars(-c(Rank, method)), round, digits = 2) %>%
-  arrange(Rank)
+  ## this run's values for the NEW methods (MIDAS/MaxFuse/scButterfly), on the count>100 "major"
+  ## cell-type basis: major/ = 00_compute_metrics.py run against label_major.csv (03_major_recompute_sub.sh).
+  ## Peak uses the MIN_GROUP>20 (predicted cells per type) corrected peakdist.csv.
+  new9 <- assemble9(p("major/sum_metrics.csv"), p("major/celltype_metrics.csv"),
+                    p("major/adj_atac_predaccu.csv"), p("peakdist.csv"))
+
+  ## SPLICE (default ON): the OLD methods keep their ORIGINAL published figS4a values; only the NEW
+  ## methods (not in the published set) are added from this run, then everything is re-ranked together.
+  ## Published source = the ORIGINAL HT243 figS4a (12 methods incl MinNet): old/HT243B1-S1H4_adj/.
+  ## The old peak values live in old/HT243B1-S1H4_adj/peakdist_adj_random.csv (Method.x + peakdist_adj,
+  ## mangled names -> remap). Set SPLICE_PUBLISHED=0 to instead score every method from this run.
+  if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
+    bm  <- file.path(indir, "..")                                    # results/brca (parent of figS6/)
+    old <- file.path(bm, "published_reference/HT243B1-S1H4_adj")     # shipped ORIGINAL figS4a (HT243) published values
+    pub9 <- assemble9(file.path(old, "benchmark_matrix/sum_metrics.csv"),
+                      file.path(old, "benchmark_matrix/celltype_metrics.csv"),
+                      file.path(old, "knn_test/adj_atac_predaccu.csv"),
+                      file.path(old, "peakdist_adj_random.csv"),     # <-- old HT243 peak (drop this file here)
+                      peak_col = "Method.x", remap = TRUE)
+    pub9 <- pub9 %>% filter(method != "MinNet")                      # revised figS4a excludes MinNet
+    added   <- new9 %>% filter(!method %in% pub9$method)
+    combined <- bind_rows(pub9, added)
+    message("SPLICE: ", nrow(pub9), " published + ", nrow(added), " new (",
+            paste(added$method, collapse = ", "), ") = ", nrow(combined), " methods")
+  } else {
+    combined <- new9
+  }
+
+  mat <- combined %>%
+    mutate(score = (ks_celltype_mean + asw) / 2 +                       ## bio-conservation
+                   (ks.statistic + omics_asw) / 2 +                     ## omics gap reduction
+                   ((ari + ami) / 2 + ks_inter_celltype_mean +
+                      (average_accu + peakdist_adj) / 2) / 3) %>%       ## alignment accuracy
+    mutate(score = score / 3,
+           Rank  = rank(-score, ties.method = "first")) %>%
+    select(method, ks_celltype_mean, asw, ks.statistic, omics_asw, ari, ami,
+           ks_inter_celltype_mean, average_accu, peakdist_adj, score, Rank) %>%
+    mutate_at(vars(-c(Rank, method)), round, digits = 2) %>%
+    arrange(Rank)
+}
 
 ## grouped scores (sum_metrics_clean.csv) -- kept for the cross-dataset summary
 mat %>%

@@ -13,7 +13,7 @@ import numpy as np
 
 ROOT = "/path/to/multiomeBench"
 TEST_ANNOT  = f"{ROOT}/pbmc_parse/input_azimuth/muti_celltype.csv"
-TRAIN_ANNOT = "/path/to/multiomeBench/common/pbmc3k/label.csv"
+TRAIN_ANNOT = "/path/to/multiomeBench/results/pbmc3k/fig2b/label.csv"
 OUT         = f"{ROOT}/pbmc_parse/benchmark/metrics/label.csv"
 MIN_CELLS   = 30
 

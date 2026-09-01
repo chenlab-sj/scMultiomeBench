@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench -- pipeline stage 4: figure generation
+# scMultiomeBench -- pipeline stage 4: figure generation
 #
 # WHAT THIS IS
 #   A thin driver that records the execution ORDER of the real analysis scripts.
@@ -79,20 +79,21 @@ run() {
 }
 
 # Consumes: the metric tables from stage 03 (and, for two panels only, the
-#           published baseline values in published_reference/).
+#           published baseline values in results/<dataset>/published_reference/).
 # Produces: the manuscript figure files.
 #
 # This is the cheap stage. Given the shipped metric tables it runs in minutes on a
 # laptop and does not need any method environment -- an R env with ggplot2/patchwork
 # and a python env with matplotlib/seaborn/scanpy cover everything here.
 #
-# published_reference/ splicing: only two scripts actually splice published baseline
+# published_reference splicing: only two scripts actually splice published baseline
 # values into a panel -- pbmc3k Fig2B and the BRCA FigS6 matrix. Other scripts contain a splice
 # branch that is dead code (their drivers set SPLICE_PUBLISHED=0).
 #
-# KNOWN GAPS: Fig S7, Fig 4C and Fig 5C have no generating script in this tree. Each
-# published panel predates every candidate script that survives here, so nothing below
-# reproduces them. See FIGURES.md, "Known gaps", for the evidence.
+# NOTE on Fig S7 / 4C / 5C (formerly missing, recovered 2026-08-31): Fig S7 = the three
+# strip scripts in figS7_multiome_vs_annotation/ (assembled manually); Fig 4C =
+# plot_fig4c_confusion.py; Fig 5C = figS7_S9/plot_pileup_grid_2page.R with the 7-row
+# method selection documented in FIGURES.md.
 #
 # NOT IN THE REPO: predicted_ataclabel_foxo1value.csv (88.7 MB) and
 # predicted_ataclabel_myod1value.csv (18.1 MB) are gitignored for size and are needed
@@ -100,7 +101,7 @@ run() {
 
 if want pbmc3k; then
   say "04 figures :: PBMC 3k  (10x multiome; 23 methods; Fig2, Fig3, Fig4, FigS1-S3)"
-  note "fig2b/plot_metrics_matrix.R is one of the two scripts that splice published_reference values"
+  note "fig2b/plot_metrics_matrix.R is one of the two scripts that splice published_reference baseline values"
   sub "datasets/pbmc3k/04_figures/fig2a"
   run "datasets/pbmc3k/04_figures/fig2a/make_umap_grid.py"
   lsf "datasets/pbmc3k/04_figures/fig2a/umap_grid_sub.sh"

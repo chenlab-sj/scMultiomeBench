@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench 00_download :: RMS Mast607A (+ two training samples, open access)
+# scMultiomeBench 00_download :: RMS Mast607A (+ two training samples, open access)
 #
 # The RMS arm starts from the authors' own 10x Multiome sequencing, processed
 # with cellranger-arc count v2.0.0 against GRCh37/hg19 (see

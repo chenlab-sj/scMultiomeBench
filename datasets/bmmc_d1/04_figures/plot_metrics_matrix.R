@@ -13,9 +13,16 @@
 suppressMessages({library(dplyr); library(formattable); library(htmlwidgets)})
 
 G   <- "/path/to/multiomeBench/BMMC_d1/benchmark"
-PUB <- file.path(G, "old/BMMC_d1/benchmark_matrix")   # published raw sources (for Portal splice)
+PUB <- "/path/to/multiomeBench/results/bmmc_d1/published_reference/benchmark_matrix"   # shipped published raw sources (for Portal splice)
 OUT <- file.path(G, "metrics")
 dir.create(OUT, showWarnings = FALSE)
+
+## Single-file mode (default): load the shipped final matrix and plot directly.
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+matrix_csv <- file.path(OUT, "metrics_matrix.csv")
+if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
+  mat <- read.csv(matrix_csv, check.names = FALSE)   # mirrors write.csv(..., row.names = FALSE) below
+} else {
 
 # published rows + BindSC/BindSC(batch) + the 4 new methods (exclude Cobolt + scJoint(batch): Cobolt absent from
 # the new run; scJoint(batch) not requested)
@@ -52,7 +59,7 @@ portal <- {
   ct <- ct %>% filter(method == "Portal") %>% summarise(method = "Portal",
               ks_celltype_mean = mean(ks_celltype), ks_sample_mean = mean(ks_sample),
               ks_inter_celltype_mean = mean(ks_inter_celltype))
-  ac <- read.csv(file.path(G, "old/BMMC_d1/adj_atac_predaccu.csv"), check.names = FALSE); ac$method <- clean(ac[[1]])
+  ac <- read.csv("/path/to/multiomeBench/results/bmmc_d1/published_reference/adj_atac_predaccu.csv", check.names = FALSE); ac$method <- clean(ac[[1]])
   ac <- ac %>% filter(method == "Portal") %>% select(method, average_accu)
   sm %>% merge(ct, "method") %>% merge(ac, "method") %>% mutate(peakdist_adj = 0.63)
 }
@@ -76,6 +83,8 @@ mat <- combined %>%
 ## batch variants -> published "&" display (scglue(multiome,batch)->scglue(multiome)&, scVI(batch)->scVI&, ...)
 disp <- function(m) { m <- gsub("\\(multiome,batch\\)", "(multiome)&", m); gsub("\\(batch\\)", "&", m) }
 mat$method <- disp(mat$method)
+
+}
 
 write.csv(mat, file.path(OUT, "metrics_matrix.csv"), row.names = FALSE)
 

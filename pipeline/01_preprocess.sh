@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# multiomeBench -- pipeline stage 1: per-dataset preprocessing
+# scMultiomeBench -- pipeline stage 1: per-dataset preprocessing
 #
 # WHAT THIS IS
 #   A thin driver that records the execution ORDER of the real analysis scripts.

@@ -9,7 +9,8 @@ is where the `00_*`–`05_*` metric scripts write `sum_metrics.csv`, `celltype_m
 `adj_atac_predaccu.csv` and `peakdist.csv`. Those intermediate CSVs are produced by the metric
 step; they are not tracked in `results/`.
 
-Files under `published_reference/` are values from the originally published analysis. Some
+Files under each dataset's `results/<dataset>/published_reference/` are values from the originally
+published analysis. Some
 figures splice them in beside the recomputed values so that the published methods keep their
 original numbers while the newly added methods are scored fresh. Only two scripts actually
 splice (pbmc3k Fig 2B and BRCA Fig S6); every other `SPLICE_PUBLISHED` branch in the tree is
@@ -31,8 +32,8 @@ hand, not plotted.
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| 2A | `datasets/pbmc3k/04_figures/fig2a/make_umap_grid.py` | per-method latent CSVs for scglue(multiome), scVI, Seurat(CCA), scJoint, Conos; `label.csv`; `knn_pred_label__<method>.csv` (from `03_metrics/00_compute_metrics.py`) | pbmc3k |
-| 2B | `datasets/pbmc3k/04_figures/fig2b/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; published baselines `published_reference/pbmc3k/metrics/sum_metrics.csv`, `benchmark_matrix/celltype_metrics.csv`, `knn_test/adj_atac_predaccu.csv`, `peak_similarity/peakdist_adj_random.csv` | pbmc3k |
+| 2A | `datasets/pbmc3k/04_figures/fig2a/make_umap_grid.py` | per-method latent CSVs for scglue(multiome), scVI, Seurat(CCA), scJoint, Conos — **shipped in `results/pbmc3k/latents/`**; `label.csv` and `knn_pred_label__<method>.csv` — shipped in `results/pbmc3k/fig2b/` (set `KNN_DIR` there) | pbmc3k |
+| 2B | `datasets/pbmc3k/04_figures/fig2b/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; published baselines `results/pbmc3k/published_reference/metrics/sum_metrics.csv`, `benchmark_matrix/celltype_metrics.csv`, `knn_test/adj_atac_predaccu.csv`, `peak_similarity/peakdist_adj_random.csv` | pbmc3k |
 
 Fig 2B is the 23-method × 9-metric matrix and the composite ranking. It writes
 `fig2b_matrix.csv` and `sum_metrics_clean.csv`, which several later figures (Fig 3A, Fig 6C,
@@ -49,7 +50,7 @@ single-method UMAP panel (`--latent`, `--label`, `--knn-pred`) for the methods a
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
 | 3A | `datasets/pbmc3k/04_figures/fig3a/plot_fig3a.R` | `<fig2b dir>/celltype_metrics.csv`, `adj_atac_predaccu.csv`, `label.csv`, `fig2b_matrix.csv` (supplies the method order, restricted to the 14 Fig 3A methods) | pbmc3k |
-| 3B–3D | `datasets/pbmc3k/04_figures/fig3bcd/make_celltype_dist.py` | latent CSVs for scglue(multiome), scJoint, scBridge, Cobolt; `label.csv` | pbmc3k |
+| 3B–3D | `datasets/pbmc3k/04_figures/fig3bcd/make_celltype_dist.py` | latent CSVs for scglue(multiome), scJoint, scBridge, Cobolt — **shipped in `results/pbmc3k/latents/`**; `label.csv` | pbmc3k |
 
 3B–3D are the CD16 monocyte, naive CD8 T and memory T inter-omics distance panels for the four
 curated methods.
@@ -60,14 +61,14 @@ curated methods.
 |---|---|---|---|
 | 4A (pairwise NMI, pbmc3k \| BRCA) | `datasets/brca/04_figures/plot_fig4_combined_brca_pbmc.py` | `nmi_df_7type.csv`, `sd_df_7type.csv` (BRCA, from `03_metrics/reproducibility/`); `nmi_df.csv`, `sd_df.csv` (pbmc3k, from `datasets/pbmc3k/03_metrics/reproducibility/00_reproduce_curated.py`) | brca + pbmc3k |
 | 4B (per-cell-type SD, pbmc3k \| BRCA) | same script — it draws all four subpanels in one row | same | brca + pbmc3k |
-| 4C (confusion matrices for Portal / Seurat(CCA) / scVI + cell-count bar) | `datasets/brca/04_figures/plot_fig4c_confusion.py` (ported from the original analysis notebook `macro_sub-Fig4C1.ipynb`; the published `Fig4C.pdf` is md5-identical to that notebook's output) | `rep_knn_k10_pred_label_7type.csv` (from `03_metrics/reproducibility/03_fig4_reproduce_7type.ipynb`) + `published_reference/brca/HT243B1-S1H4/label.csv` | brca |
-| 4D (macrophage subsampling) | `datasets/brca/05_macrophage_subsample/04_figures/plot_fig4d_macrophage.py` | `published_reference/brca/HT243B1-S1H4/knn_k10sub{0..5}_pred_accu.csv` (rep 1); `knn_k10sub{1..5}_pred_accu.csv` for reps 2–5 from `05_macrophage_subsample`; `new_methods_macro_accu.csv` from `05_macrophage_subsample/03_metrics/compute_new_methods_accu.py` | brca |
+| 4C (confusion matrices for Portal / Seurat(CCA) / scVI + cell-count bar) | `datasets/brca/04_figures/plot_fig4c_confusion.py` (ported from the original analysis notebook `macro_sub-Fig4C1.ipynb`; the published `Fig4C.pdf` is md5-identical to that notebook's output) | `rep_knn_k10_pred_label_7type.csv` (from `03_metrics/reproducibility/03_fig4_reproduce_7type.ipynb`) + `results/brca/published_reference/HT243B1-S1H4/label.csv` | brca |
+| 4D (macrophage subsampling) | `datasets/brca/05_macrophage_subsample/04_figures/plot_fig4d_macrophage.py` | `results/brca/published_reference/HT243B1-S1H4/knn_k10sub{0..5}_pred_accu.csv` (rep 1); `knn_k10sub{1..5}_pred_accu.csv` for reps 2–5 from `05_macrophage_subsample`; `new_methods_macro_accu.csv` from `05_macrophage_subsample/03_metrics/compute_new_methods_accu.py` | brca |
 
 Upstream for 4A/4B on the BRCA side: `datasets/brca/03_metrics/reproducibility/00_cobolt_nmi.py`,
 `01_midas_pick.py`, `02_reproduce_metrics.py`, `03_fig4_reproduce_7type.ipynb` (the notebook writes
 `nmi_df_7type.csv`, `sd_df_7type.csv` and `rep_knn_k10_pred_label_7type.csv`), plus
-`published_reference/brca/HT243B1-S1H4/label.csv`, `reproducbility.csv` and
-`published_reference/brca/HT243B1-S1H4_adj/louvain_cluster_reproduce.csv`.
+`results/brca/published_reference/HT243B1-S1H4/label.csv`, `reproducbility.csv` and
+`results/brca/published_reference/HT243B1-S1H4_adj/louvain_cluster_reproduce.csv`.
 Upstream for 4D: `datasets/brca/05_macrophage_subsample/01_preprocess/macro_subset_rep{1..5}.R`
 then the MaxFuse / MIDAS / scButterfly runs in that sub-experiment.
 
@@ -80,8 +81,8 @@ behind 4D). They exist only in the pre-revision working directories.
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| 5A (metrics matrix + ranking) | `datasets/rms/04_figures/fig5a/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `published_reference/rms/Mast607A/benchmark_matrix/{sum_metrics,celltype_metrics,sum_metrics_clean}.csv` and `knn_test/adj_atac_predaccu.csv` | rms |
-| 5B (Euclidean distance of predicted vs true coverage tracks) | `datasets/rms/04_figures/fig5b/plot_fig5b.py` | `published_reference/rms/Mast607A/knn_test/predicted_ataclabel_{myod1,foxo1}value.csv` (published methods) + `new_methods_{myod1,foxo1}value.csv` from `datasets/rms/03_metrics/04_compute_new_pileups.R` (new methods) | rms |
+| 5A (metrics matrix + ranking) | `datasets/rms/04_figures/fig5a/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `results/rms/published_reference/Mast607A/benchmark_matrix/{sum_metrics,celltype_metrics,sum_metrics_clean}.csv` and `knn_test/adj_atac_predaccu.csv` | rms |
+| 5B (Euclidean distance of predicted vs true coverage tracks) | `datasets/rms/04_figures/fig5b/plot_fig5b.py` | `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_{myod1,foxo1}value.csv` (published methods) + `new_methods_{myod1,foxo1}value.csv` from `datasets/rms/03_metrics/04_compute_new_pileups.R` (new methods) | rms |
 | 5C (MYOD1 / FOXO1 pileup tracks, 7 rows: Annotation + 5 methods + Random) | `datasets/rms/04_figures/figS7_S9/plot_pileup_grid_2page.R` with the Fig 5C method selection — see note below | same inputs as Figs S8/S9 | rms |
 
 Upstream for 5A: `datasets/rms/03_metrics/00_prep_latents.py` → `01_compute_metrics.py` →
@@ -104,7 +105,7 @@ the combined script.
 
 | Panel | Content | Key inputs | Dataset |
 |---|---|---|---|
-| 6A | BMMC benchmark, four metric facets | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `published_reference/bmmc_d1/sum_metrics_clean.csv`; `published_reference/bmmc_d1/label.csv` | bmmc_d1 |
+| 6A | BMMC benchmark, four metric facets | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `results/bmmc_d1/published_reference/sum_metrics_clean.csv`; `results/bmmc_d1/published_reference/label.csv` | bmmc_d1 |
 | 6B | BMMC same-donor cross-site (s1d1 RNA + s4d1 ATAC vs s1d1 multiome) | matrices from `datasets/bmmc_d1/05_crosssite/03_metrics/` and `datasets/bmmc_d1/06_s1d1_paired/03_metrics/`, assembled by the `plot_metrics_matrix.R` in each of those sub-experiments' `04_figures/` | bmmc_d1 |
 | 6C | PBMC cross-platform (Parse RNA + 10x ATAC vs 10x multiome) | `datasets/pbmc_parse/03_metrics/` matrix + pbmc3k `fig2b_matrix.csv` | pbmc_parse + pbmc3k |
 
@@ -162,8 +163,8 @@ the response text; it is not drawn in Fig S1.
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| S2A + S2B (two-row k-sensitivity, one shared legend and x-axis) | `summary/04_figures/plot_figS2a_ksens_combined.py` | pbmc3k `kNN_celltype_accu_sum.csv` + `new_methods_ktest_long.csv` (from `datasets/pbmc3k/03_metrics/ksensitivity/00_compute_ktest_legacy18.py` and `01_compute_ktest_new_methods.py`); pbmc10k `published_reference/pbmc10k/knn_test/kNN_celltype_accu_sum.csv` + `new_methods_ktest_long.csv` | pbmc3k + pbmc10k |
-| S2C (pbmc10k metrics matrix) | `datasets/pbmc10k/04_figures/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `published_reference/pbmc10k/peakdist_adj_random.csv` | pbmc10k |
+| S2A + S2B (two-row k-sensitivity, one shared legend and x-axis) | `summary/04_figures/plot_figS2a_ksens_combined.py` | pbmc3k `kNN_celltype_accu_sum.csv` + `new_methods_ktest_long.csv` (from `datasets/pbmc3k/03_metrics/ksensitivity/00_compute_ktest_legacy18.py` and `01_compute_ktest_new_methods.py`); pbmc10k `results/pbmc10k/published_reference/knn_test/kNN_celltype_accu_sum.csv` + `new_methods_ktest_long.csv` | pbmc3k + pbmc10k |
+| S2C (pbmc10k metrics matrix) | `datasets/pbmc10k/04_figures/plot_metrics_matrix.R` | `<metrics>/sum_metrics.csv`, `celltype_metrics.csv`, `adj_atac_predaccu.csv`, `peakdist.csv`; `results/pbmc10k/published_reference/peakdist_adj_random.csv` | pbmc10k |
 
 k = 5, 10, 20, 40, 80 for 23 methods per dataset. The published benchmark uses k = 10, cosine
 distance, distance-weighted.
@@ -198,7 +199,7 @@ Note for readers: scJoint is excluded from the Fig S3 headline comparison
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| S4 (methods ranked 1–7) | `datasets/brca/04_figures/plot_figS4_S5_confusion.py` | `rep_knn_k10_pred_label_7type.csv` (columns `<method>-1/-2/-3`) + `published_reference/brca/HT243B1-S1H4/label.csv` | brca |
+| S4 (methods ranked 1–7) | `datasets/brca/04_figures/plot_figS4_S5_confusion.py` | `rep_knn_k10_pred_label_7type.csv` (columns `<method>-1/-2/-3`) + `results/brca/published_reference/HT243B1-S1H4/label.csv` | brca |
 | S5 (methods ranked 8–14) | same script, second page | same | brca |
 
 One script writes both pages; the split is the `FIGS2` / `FIGS3A` lists inside it (again, local
@@ -209,7 +210,7 @@ grid reads in the same order as Fig S6.
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| S6 | `datasets/brca/04_figures/plot_metrics_matrix.R` | `<metrics>/major/{sum_metrics,celltype_metrics,adj_atac_predaccu}.csv` and `<metrics>/peakdist.csv`; published baselines `published_reference/brca/HT243B1-S1H4_adj/benchmark_matrix/{sum_metrics,celltype_metrics}.csv`, `knn_test/adj_atac_predaccu.csv`, `peakdist_adj_random.csv` | brca |
+| S6 | `datasets/brca/04_figures/plot_metrics_matrix.R` | `<metrics>/major/{sum_metrics,celltype_metrics,adj_atac_predaccu}.csv` and `<metrics>/peakdist.csv`; published baselines `results/brca/published_reference/HT243B1-S1H4_adj/benchmark_matrix/{sum_metrics,celltype_metrics}.csv`, `knn_test/adj_atac_predaccu.csv`, `peakdist_adj_random.csv` | brca |
 
 This is the second of the two scripts that really splice published values (`SPLICE_PUBLISHED=1`,
 set by `plot_metrics_matrix_sub.sh`). Upstream: `datasets/brca/01_preprocess/00_data_prep.R` and
@@ -242,15 +243,15 @@ from the authors on request**, like the Fig S8/S9 inputs. The two pileup scripts
 | S9 (page 2) | same script, second page | see below | rms |
 
 Inputs:
-`published_reference/rms/Mast607A/knn_test/predicted_ataclabel_myod1value.csv`,
+`results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_myod1value.csv`,
 `predicted_ataclabel_foxo1value.csv`, `knn_k10_pred_label.csv`, `knn_k10_pred_accu.csv`,
-`published_reference/rms/Mast607A/label.csv`, plus the new methods'
+`results/rms/published_reference/Mast607A/label.csv`, plus the new methods'
 `new_methods_{myod1,foxo1}value.csv`, `knn_pred_accu.csv` and `knn_pred_label__<method>.csv` from
 `datasets/rms/03_metrics/04_compute_new_pileups.R`. The script caches the assembled tracks in
 `region_long.rds` and reuses it on later runs.
 
 > **Two inputs are gitignored and are not in the public repository:**
-> `published_reference/rms/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv` (88.7 MB) and
+> `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv` (88.7 MB) and
 > `predicted_ataclabel_myod1value.csv` (18.1 MB). They are required for Fig 5B, Fig S8 and Fig S9.
 > **Available from the authors on request.**
 
@@ -272,7 +273,7 @@ separate PDFs; merged six minutes later into the published single figure) and `p
 
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
-| BMMC 3-site metrics matrix | `datasets/bmmc_d1/04_figures/plot_metrics_matrix.R` | `<metrics>/{sum_metrics,celltype_metrics,adj_atac_predaccu,peakdist}.csv`; published baselines `published_reference/bmmc_d1/benchmark_matrix/sum_metrics_all.csv`, `benchmark_matrix/celltype_metrics2.csv`, `adj_atac_predaccu.csv` | bmmc_d1 |
+| BMMC 3-site metrics matrix | `datasets/bmmc_d1/04_figures/plot_metrics_matrix.R` | `<metrics>/{sum_metrics,celltype_metrics,adj_atac_predaccu,peakdist}.csv`; published baselines `results/bmmc_d1/published_reference/benchmark_matrix/sum_metrics_all.csv`, `benchmark_matrix/celltype_metrics2.csv`, `adj_atac_predaccu.csv` | bmmc_d1 |
 | cross-site matrix | `datasets/bmmc_d1/05_crosssite/04_figures/plot_metrics_matrix.R` | `05_crosssite/03_metrics/` outputs (`00_build_label.py` → `01_prep_latents.py` → `02_compute_metrics.py` → `04_adjust_accuracy.py` → `05_peak_similarity.R`) | bmmc_d1 |
 | s1d1 paired-multiome baseline matrix | `datasets/bmmc_d1/06_s1d1_paired/04_figures/plot_metrics_matrix.R` | `06_s1d1_paired/03_metrics/` outputs | bmmc_d1 |
 | s1d1 paired 9-metric table | `datasets/bmmc_d1/06_s1d1_paired/04_figures/figS11_table_9metric.R` | `06_s1d1_paired/03_metrics/major/{sum_metrics,celltype_metrics,adj_atac_predaccu}.csv` + `peakdist.csv` | bmmc_d1 |
@@ -285,7 +286,7 @@ The s1d1 baseline is paired multiome, so it carries the full 9 metrics; the cros
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
 | S12 (metrics matrix) | `datasets/pbmc_parse/04_figures/plot_metrics_matrix.R` | `<metrics>/{sum_metrics,celltype_metrics,adj_atac_predaccu,peakdist}.csv` from `03_metrics/00_build_label.py` → `01_prep_latents.py` → `02_compute_metrics.py` → `03_adjust_accuracy.py` → `04_peak_similarity.R` | pbmc_parse |
-| per-method UMAPs | `datasets/pbmc_parse/04_figures/plot_umap.py` | per-method latent CSV + `label.csv` + `knn_pred_label__<method>.csv` | pbmc_parse |
+| per-method UMAPs | `datasets/pbmc_parse/04_figures/plot_umap.py` | per-method latent CSV (**shipped in `results/pbmc_parse/latents/`**) + `label.csv` + `knn_pred_label__<method>.csv` (**shipped in `results/pbmc_parse/knn_pred_label/`**) | pbmc_parse |
 
 Preprocessing: `01_preprocess/00_data_prep.R` → `01_azimuth_annotate_parse.R` →
 `02_compare_donor_composition.R` → `03_qc_confidence_donors.R` → `04_build_integration_dataset.R`.
@@ -359,18 +360,24 @@ peak distance.
    ```
 
    `config/config.sh` defines `DATA_ROOT`, `PROJECT_ROOT`, `BENCHMARK_FUN_DIR` (defaults to
-   `common/`) and `PUBLISHED_REF` (defaults to `published_reference/`), all with `/path/to/data`
+   `common/`) and `PUBLISHED_REF` (defaults to `results/`; baselines at `results/<dataset>/published_reference/`), all with `/path/to/data`
    placeholders, and sources `config/config.local.sh` if present. `config/config.yaml` and
    `config/config.R` carry the same values for Python and R. R scripts read them through
    `Sys.getenv()`.
 
    `config/config.local.sh` is gitignored. Do not commit it.
 
-2. **Make sure the inputs exist.** Every figure script reads the metric CSVs listed in its row
-   above. If they are not already on disk, run that dataset's `01_preprocess`, `02_methods` and
+2. **Make sure the inputs exist — usually they already do.** Every metrics-matrix figure script
+   (pbmc3k Fig 2B, pbmc10k Fig S2C, pbmc_parse Fig S12, BRCA Fig S6, RMS Fig 5A, the three BMMC
+   matrices, and the Fig 6A panel of `fig6_combined.py`) runs in **single-file mode by default**:
+   it loads the shipped final merged table (`fig2b_matrix.csv` / `metrics_matrix.csv` /
+   `fig6_scores.csv` in the dataset's `results/` folder) and renders the figure directly — no
+   per-metric tables and no splice needed. Set `REBUILD_MATRIX=1` to instead rebuild the merged
+   table from the per-metric CSVs plus the `published_reference/` splice. For other figures, if the
+   inputs are not already on disk, run that dataset's `01_preprocess`, `02_methods` and
    `03_metrics` steps first; the numbered filenames give the order, and each dataset's
-   `03_metrics/run_all.sh` chains them where one exists. The published-baseline CSVs under
-   `published_reference/` ship with the repo, except the two large RMS files noted under Fig S8/S9.
+   `03_metrics/run_all.sh` chains them where one exists. The published-baseline CSVs under each dataset's
+   `results/<dataset>/published_reference/` ship with the repo, except the two large RMS files noted under Fig S8/S9.
 
 3. **Run the script named in the table.**
 

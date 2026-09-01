@@ -71,7 +71,7 @@ that it cannot be launched by reflex.
                        (Fig2-Fig6, FigS1-S12)    figures (Fig7, FigS2A, FigS13)
                               ^
                               |
-                     published_reference/  (two panels only: pbmc3k Fig2B,
+                     results/<ds>/published_reference/  (two panels only: pbmc3k Fig2B,
                                             BRCA FigS6)
 ```
 
@@ -83,7 +83,7 @@ What each stage hands to the next:
 | 01 | `$DATA_ROOT` | per-dataset objects, common peaks, ground-truth labels, per-method prepared inputs |
 | 02 | stage 01 outputs | latent embeddings, one per method per dataset per seed |
 | 03 | stage 02 embeddings + stage 01 labels | metric tables (composite score inputs) |
-| 04 | stage 03 tables (+ `published_reference/` for two panels) | manuscript figures |
+| 04 | stage 03 tables (+ `results/<dataset>/published_reference/` for two panels) | manuscript figures |
 
 Stage 04 is cheap: given the stage-03 metric tables it runs in minutes and needs no method
 environment. `results/` holds the collected copies of those tables; the plotting scripts themselves
