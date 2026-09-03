@@ -21,7 +21,7 @@ conda activate seurat4
 ROOT=${PROJECT_ROOT}
 cd "${ROOT}/RMS/benchmark/figS4a"
 DATA38="${ROOT}/RMS/Mast607/data/Mast607A_TB19_22652/hg38/outs"
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export FRAG="${DATA38}/atac_fragments.tsv.gz"
 export H5="${DATA38}/filtered_feature_bc_matrix.h5"
 export FIG2B_DIR="${ROOT}/RMS/benchmark/figS4a"     # holds knn_pred_label__*.csv + label.csv

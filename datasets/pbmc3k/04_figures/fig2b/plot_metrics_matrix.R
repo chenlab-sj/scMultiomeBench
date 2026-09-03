@@ -13,7 +13,7 @@ outdir <- ifelse(length(args) >= 2, args[2], indir)
 p <- function(f) file.path(indir, f)
 
 ## Single-file mode (default): load the shipped final matrix and plot directly.
-## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
 matrix_csv <- p("fig2b_matrix.csv")
 if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
   mat <- read.csv(matrix_csv, check.names = FALSE)   # mirrors write.csv(mat, ..., row.names = FALSE)
@@ -42,7 +42,7 @@ new9 <- assemble9(p("sum_metrics.csv"), p("celltype_metrics.csv"),
 ## (Conos is in the published set, so its value comes from the publication -- no need to recompute.)
 ## Set SPLICE_PUBLISHED=0 to instead score every method from this run.
 if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
-  bm <- file.path(indir, "..", "published_reference")   # shipped baselines (results/pbmc3k/published_reference/)
+  bm <- "/path/to/reference_tables/pbmc3k"   # rebuild-only reference tables, not shipped -- available from the authors on request
   pub9 <- assemble9(file.path(bm, "metrics/sum_metrics.csv"),
                     file.path(bm, "benchmark_matrix/celltype_metrics.csv"),
                     file.path(bm, "knn_test/adj_atac_predaccu.csv"),

@@ -4,6 +4,6 @@
 DATA_ROOT        <- Sys.getenv("DATA_ROOT",        "/path/to/data")
 PROJECT_ROOT     <- Sys.getenv("PROJECT_ROOT",     normalizePath(".."))
 BENCHMARK_FUN_DIR<- Sys.getenv("BENCHMARK_FUN_DIR", file.path(PROJECT_ROOT, "common"))
-PUBLISHED_REF    <- Sys.getenv("PUBLISHED_REF",    file.path(PROJECT_ROOT, "results"))  # baselines: results/<dataset>/published_reference/
+PUBLISHED_REF    <- Sys.getenv("PUBLISHED_REF",    file.path(PROJECT_ROOT, "results"))  # legacy; figure input tables live under results/
 TOOLS_ROOT       <- Sys.getenv("TOOLS_ROOT",       "/path/to/tools")
 REF_ROOT         <- Sys.getenv("REF_ROOT",         "/path/to/references")

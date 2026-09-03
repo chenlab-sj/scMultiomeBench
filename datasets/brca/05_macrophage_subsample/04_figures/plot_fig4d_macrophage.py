@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 G = "/path/to/multiomeBench"
-OLD_REP1  = f"{G}/BRCA/benchmark/old/HT243B1-S1H4"          # rep1: knn_k10sub{0..5}_pred_accu.csv
+OLD_REP1  = f"{G}/results/brca/fig4d"          # rep1: knn_k10sub{0..5}_pred_accu.csv
 SUBSAMPLE = f"{G}/BRCA/HT243-S1H4_subsample"                # rep2-5: HT243_S1H4_macrosub{rep}/...
 HERE      = f"{G}/BRCA/benchmark/fig4d_macrophage_subset"
 MACRO_BASE_COUNT = 852                                      # full test-ATAC macrophage count

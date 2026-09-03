@@ -20,7 +20,7 @@ conda activate seurat4
 
 ROOT=${PROJECT_ROOT}
 cd "${ROOT}/BMMC_d1/benchmark"
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export FIG2B_DIR=.
 export PEAK_OUT=./peak
 export LABEL=./old/BMMC_d1/label.csv

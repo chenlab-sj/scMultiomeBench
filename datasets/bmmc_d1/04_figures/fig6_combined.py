@@ -42,7 +42,7 @@ from make_r1_brca_pbmc_composite import bmmc_crosssite_data, pbmc_data, plot_pbm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D    = os.path.normpath(os.path.join(HERE, ".."))
-PUB  = "/path/to/multiomeBench/results/bmmc_d1/published_reference/sum_metrics_clean.csv"
+PUB  = "/path/to/multiomeBench/results/bmmc_d1/sum_metrics_clean.csv"
 
 # ---- font sizes (enlarged) ----
 FS_TICK, FS_FACET, FS_XMETH, FS_YLAB, FS_LEG, FS_AXIS, FS_LABEL, FS_CBAR, FS_LETTER = 17, 17, 17, 20, 17, 19, 16, 17, 23
@@ -61,7 +61,7 @@ FACETS = ["Biological diversity\npreservation", "Batch effects\ncorrection",
 
 def bmmc_scores():
     # Single-file mode (default): load the shipped final score frame and plot directly.
-    # Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+    # Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
     scores_csv = os.path.join(D, "fig6_scores.csv")
     if os.environ.get("REBUILD_MATRIX", "0") != "1" and os.path.exists(scores_csv):
         tab = pd.read_csv(scores_csv)

@@ -95,11 +95,7 @@ to `3k`; the split logic is otherwise identical.
 **Approximate size.** ~2 GB, almost entirely the ATAC fragments file; the filtered matrix h5 is tens
 of MB.
 
-**Ground truth in this repo.** Cell-type labels and published baseline metric values for this dataset
-are carved out under `results/pbmc3k/published_reference/` (`benchmark_matrix/celltype_metrics.csv`,
-`metrics/sum_metrics.csv`, `knn_test/adj_atac_predaccu.csv`,
-`peak_similarity/peakdist_adj_random.csv`). The Fig 2B plotter is one of only two scripts that
-actually splices published values back in.
+**Ground truth in this repo.** Cell-type labels at `results/pbmc3k/fig2b/label.csv`.
 
 ---
 
@@ -190,9 +186,8 @@ All downstream method runs therefore share one peak vocabulary.
 
 **Figures.** Fig 6A (with the `_batch` variants), Fig 6B, Fig S11, Table S4.
 
-**Ground truth in this repo.** `results/bmmc_d1/published_reference/label.csv`,
-`adj_atac_predaccu.csv`, `sum_metrics_clean.csv`, `benchmark_matrix/celltype_metrics2.csv`,
-`benchmark_matrix/sum_metrics_all.csv`.
+**Ground truth in this repo.** `results/bmmc_d1/label.csv` (48,454-cell 3-site labels) and
+`results/bmmc_d1/sum_metrics_clean.csv`.
 
 ---
 
@@ -241,15 +236,11 @@ This dataset is **not open**. Obtaining it takes two steps and cannot be scripte
 
 **Redistribution.** Do not commit any BRCA object, fragment file, barcode list, or per-cell table to
 a public repository. The tables that *are* in this repo
-(`results/brca/published_reference/HT243B1-S1H4*/`) are aggregated metric values and de-identified cell-type
-labels only.
+(under `results/brca/`) are aggregated metric values and de-identified cell-type labels only.
 
 **Approximate size.** ~5 GB for the four `.rds` objects plus the fragments file.
 
-**Figures.** Fig 4A, 4B (reproducibility), Fig 4D (macrophage subsampling), Fig S4, Fig S5,
-Fig S6. Fig 4C has no generating script in this repository — see FIGURES.md, *Known gaps*.
-The Fig S6 metrics-matrix plotter (`datasets/brca/04_figures/plot_metrics_matrix.R`) is the second
-of the two scripts that actually splice published baseline values.
+**Figures.** Fig 4A–D, Fig S4, Fig S5, Fig S6.
 
 ---
 
@@ -293,9 +284,8 @@ tables those scripts read are not committed (size); they are available from the 
 like the Fig S8/S9 inputs. Fig 5C uses the same pileup code as Figs S8/S9 with a different method
 selection — see FIGURES.md.
 
-**Ground truth in this repo.** `results/rms/published_reference/Mast607A/` holds `label.csv`, the
-`benchmark_matrix/` metric tables and `knn_test/knn_k10_pred_accu.csv` /
-`knn_k10_pred_label.csv` / `adj_atac_predaccu.csv`.
+**Ground truth in this repo.** `results/rms/label.csv`, `results/rms/sum_metrics_clean.csv` and
+the `results/rms/knn_test/` prediction tables.
 
 ---
 
@@ -305,8 +295,8 @@ selection — see FIGURES.md.
 |---|---|---|---|
 | Raw FASTQ, Cell Ranger `outs/`, fragment files, `.h5`, `.h5ad`, `.rds`, `.RData`, BAM, bigWig | **~250 GB total; largest single file 21.6 GB** | GitHub rejects files over 100 MB and this volume is not distributable through git at all | Sections 3–8 above; `00_download/` for the open datasets |
 | Per-method intermediate outputs (latent embeddings for every method × dataset × replicate, ArrowFiles, model checkpoints) | tens of GB | regenerable by rerunning `02_methods/`; not primary data | rerun the method scripts, or contact the authors |
-| `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv` | 88.7 MB | too large for a comfortable checkout | **available from the authors on request** |
-| `results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_myod1value.csv` | 18.1 MB | same | **available from the authors on request** |
+| `results/rms/knn_test/predicted_ataclabel_foxo1value.csv` | 88.7 MB | too large for a comfortable checkout | **available from the authors on request** |
+| `results/rms/knn_test/predicted_ataclabel_myod1value.csv` | 18.1 MB | same | **available from the authors on request** |
 
 The two `predicted_ataclabel_*` tables are per-cell FOXO1 and MYOD1 values keyed by KNN-predicted ATAC
 label; they are the direct inputs to **Fig S8 and Fig S9**. Every other RMS figure can be regenerated
@@ -316,11 +306,10 @@ The file-type exclusions are enforced by `.gitignore` (`*.h5`, `*.h5ad`, `*.rds`
 `*.tsv.gz`, `*.bam`, `*.bw`, `*.npy`, `ArrowFiles/`, …), which also blocks
 `config/config.local.sh` so that no local path map is ever published.
 
-**What *is* included**: the 33 published-baseline files under `results/<dataset>/published_reference/` (31 committed; the two oversized
-RMS tables above are gitignored and available on request) — per-dataset ground-truth `label.csv`
-tables and the published baseline metric values — every script under `datasets/`, `summary/`,
-`pipeline/` and `config/`, and the collected metric tables under `results/` (see
-`results/README.md` for which figure each table set feeds).
+**What *is* included**: every script under `datasets/`, `summary/`, `pipeline/` and `config/`, and
+all figure input tables under `results/` — the merged final tables, per-metric tables, per-method
+latents and ground-truth labels (the two oversized RMS tables above are gitignored and available
+on request). See `results/README.md`.
 
 ---
 

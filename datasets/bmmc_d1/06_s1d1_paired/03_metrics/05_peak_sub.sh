@@ -20,7 +20,7 @@ conda activate seurat4
 FIG="${LS_SUBCWD:-$PWD}"
 cd "${FIG}" || exit 1
 
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export FRAG_FILE=${DATA_ROOT}/BMMC/NCBI_sra/s1d1/outs/atac_fragments.tsv.gz
 export H5_FILE=${DATA_ROOT}/BMMC_d1/test3_s1d1.h5        # s1d1 test h5 (Gene Expression + Peaks)
 export FIG2B_DIR="${FIG}"                                          # holds knn_pred_label__*.csv + label.csv

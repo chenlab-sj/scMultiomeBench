@@ -24,10 +24,10 @@ ROOT=${PROJECT_ROOT}
 FIG=${ROOT}/pbmc/pbmc10k/benchmark
 cd "${FIG}"
 
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export PEAK_DATA=${DATA_ROOT}/pbmc10k
 export FIG2B_DIR="${FIG}"
-export PEAK_OUT=${BENCHMARK_FUN_DIR}/peak_similarity/pbmc10k    # has cached annotation/random + 18 old bigWigs
+export PEAK_OUT=${BENCHMARK_FUN_DIR}/peak_cache/pbmc10k    # has cached annotation/random + 18 old bigWigs
 export NEW_METHODS=MaxFuse,MIDAS,scButterfly,MIRA,Multigrate
 
 Rscript 02_peak_similarity.R          # -> peakdist.csv (5 new methods)

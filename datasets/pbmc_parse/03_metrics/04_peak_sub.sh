@@ -22,7 +22,7 @@ ROOT=${PROJECT_ROOT}
 METRICS="${ROOT}/pbmc_parse/benchmark/metrics"
 cd "${METRICS}"
 
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export PEAK_DATA=${DATA_ROOT}/pbmc3k        # same pbmc3k ATAC fragments .tsv.gz + test .h5
 export METRICS_DIR="${METRICS}"
 export PEAK_OUT="${METRICS}/peak"

@@ -14,7 +14,7 @@ outdir <- ifelse(length(args) >= 2, args[2], indir)
 p <- function(f) file.path(indir, f)
 
 ## Single-file mode (default): load the shipped final matrix and plot directly.
-## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
 matrix_csv <- p("metrics_matrix.csv")
 if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
   mat <- read.csv(matrix_csv, check.names = FALSE)   # mirrors write.csv(..., row.names = FALSE)
@@ -38,7 +38,7 @@ if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
 
   ## ---- OLD methods = published Fig5A (old/Mast607A/); 9 methods, scDART + Cobolt excluded ----
   OLD <- c("BindSC", "Portal", "Seurat(CCA)", "scBridge", "scJoint", "scVI", "scglue", "scglue(multiome)", "simba")
-  bm  <- file.path(indir, "..", "published_reference", "Mast607A")  # shipped baselines (results/rms/published_reference/)
+  bm  <- "/path/to/reference_tables/rms/Mast607A"  # rebuild-only reference tables, not shipped -- available on request
   sm  <- read.csv(file.path(bm, "benchmark_matrix/sum_metrics.csv")); sm$method <- recode(sm$method, "Bindsc" = "BindSC")
   ct  <- read.csv(file.path(bm, "benchmark_matrix/celltype_metrics.csv")); ct$method <- recode(ct$method, "Bindsc" = "BindSC")
   ctm <- ct %>% group_by(method) %>%

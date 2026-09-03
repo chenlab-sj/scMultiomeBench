@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 G = "/path/to/multiomeBench"
-OLD = f"{G}/RMS/benchmark/old/Mast607A/knn_test"
+OLD = f"{G}/results/rms/knn_test"
 NEW = f"{G}/RMS/benchmark/fig5b"
 CTS = ["Myocyte", "Myoblast", "Mesoderm"]                 # heatmap row order (top->bottom), matches published
 REMAP = {"scglue.multiome.": "scglue(multiome)", "Seurat.CCA.": "Seurat(CCA)", "Bindsc": "BindSC", "random": "Random"}

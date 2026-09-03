@@ -15,7 +15,7 @@ The functions are kept verbatim -- only the two input paths are repointed to the
     rep_knn_k10_pred_label.csv -- same '<Method>-1/-2/-3' naming, same 7-type labels; the extra
     methods' columns are ignored because plot_avg_triplicate_heatmaps only plots the requested
     `methods`)
-  - labels: results/brca/published_reference/HT243B1-S1H4/label.csv (the 7-cell-type truth)
+  - labels: results/brca/label.csv (the 7-cell-type truth)
 
 Run:  python plot_fig4c_confusion.py     -> Fig4C.pdf in the current directory
 """
@@ -179,7 +179,7 @@ if __name__ == "__main__":
     # triplicate KNN (k=10) ATAC-label predictions, columns '<Method>-1/-2/-3'
     KNN_annot = '/path/to/multiomeBench/datasets/brca/03_metrics/reproducibility/rep_knn_k10_pred_label_7type.csv'
     # 7-cell-type truth labels (cell_type + modality per barcode)
-    cell_annot = '/path/to/multiomeBench/results/brca/published_reference/HT243B1-S1H4/label.csv'
+    cell_annot = '/path/to/multiomeBench/results/brca/label.csv'
 
     KNN_atac_label = pd.read_csv(KNN_annot, index_col = 0)
 

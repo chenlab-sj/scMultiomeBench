@@ -6,7 +6,7 @@
 ## old methods (same fragments, same plot_region_pileups params). Also re-emits the "annotation" (true-label)
 ## track as a consistency reference. Output: new_methods_{myod1,foxo1}value.csv (position, Mesoderm, Myoblast,
 ## Myocyte, pipeline) -- spliced onto the published value CSVs for the Fig5B heatmap.  Run in seurat4 env.
-source("/path/to/multiomeBench/common/SJRHB013758_X2/plot_predpeak/plot_regionpeak_fun.R")
+source("/path/to/multiomeBench/common/plot_regionpeak_fun.R")
 suppressMessages({library(Seurat); library(Signac); library(dplyr)})
 mypalette <- c("#1F77B4", "#FF7F0E", "#2CA02C")
 

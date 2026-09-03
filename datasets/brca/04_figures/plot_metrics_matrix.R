@@ -13,7 +13,7 @@ outdir <- ifelse(length(args) >= 2, args[2], indir)
 p <- function(f) file.path(indir, f)
 
 ## Single-file mode (default): load the shipped final matrix and plot directly.
-## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
 ## NOTE the loaded matrix keeps its published score/Rank columns: recomputing them from the
 ## rounded values would swap the scglue / scglue(multiome) tie (ranks 2/3), so we do not.
 matrix_csv <- p("fig2b_matrix.csv")
@@ -48,7 +48,7 @@ if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
   ## mangled names -> remap). Set SPLICE_PUBLISHED=0 to instead score every method from this run.
   if (Sys.getenv("SPLICE_PUBLISHED", "1") == "1") {
     bm  <- file.path(indir, "..")                                    # results/brca (parent of figS6/)
-    old <- file.path(bm, "published_reference/HT243B1-S1H4_adj")     # shipped ORIGINAL figS4a (HT243) published values
+    old <- "/path/to/reference_tables/brca/HT243B1-S1H4_adj"        # rebuild-only reference tables, not shipped -- available on request
     pub9 <- assemble9(file.path(old, "benchmark_matrix/sum_metrics.csv"),
                       file.path(old, "benchmark_matrix/celltype_metrics.csv"),
                       file.path(old, "knn_test/adj_atac_predaccu.csv"),

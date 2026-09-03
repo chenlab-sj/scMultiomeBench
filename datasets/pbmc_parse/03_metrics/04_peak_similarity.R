@@ -20,7 +20,7 @@
 ##   Rscript 02_peak_similarity.R          # paths via env vars below (defaults = the pbmc3k data)
 ## Output: <PEAK_OUT>/peak_similarity.csv (raw) and peakdist.csv (method, peakdist_adj) in METRICS_DIR.
 
-EXPORT_BWG <- Sys.getenv("EXPORT_BWG", "/path/to/multiomeBench/common/peak_similarity/export_groupbwg.R")
+EXPORT_BWG <- Sys.getenv("EXPORT_BWG", "/path/to/multiomeBench/common/export_groupbwg.R")
 source(EXPORT_BWG)                          # provides ExportGroupBW()
 suppressMessages({library(Signac); library(Seurat)})
 

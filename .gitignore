@@ -26,8 +26,8 @@ matrix.mtx
 
 # ---- oversized published-reference tables (available from the authors on request) ----
 # Required by Fig 5B and Figs S8/S9; 88.7 MB and 18.1 MB, documented in DATA.md section 9.
-results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_foxo1value.csv
-results/rms/published_reference/Mast607A/knn_test/predicted_ataclabel_myod1value.csv
+results/rms/knn_test/predicted_ataclabel_foxo1value.csv
+results/rms/knn_test/predicted_ataclabel_myod1value.csv
 
 # ---- local-only path mapping: must never be published ----
 config/config.local.sh

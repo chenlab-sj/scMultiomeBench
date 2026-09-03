@@ -29,7 +29,7 @@ conda deactivate
 #    tokens (and their cached peak/M*/ bigWigs) valid, so only Portal's coverage is exported fresh.
 module load conda3/202210
 conda activate seurat4
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export FIG2B_DIR=.
 export PEAK_OUT=./peak
 export LABEL=./old/BMMC_d1/label.csv

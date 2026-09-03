@@ -22,7 +22,7 @@ ROOT=${PROJECT_ROOT}
 FIG2B="${ROOT}/pbmc/pbmc3k/benchmark/fig2b"
 cd "${FIG2B}"
 
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export PEAK_DATA=${DATA_ROOT}/pbmc3k        # fragments .tsv.gz + test .h5 live here
 export FIG2B_DIR="${FIG2B}"
 export PEAK_OUT="${FIG2B}/peak"

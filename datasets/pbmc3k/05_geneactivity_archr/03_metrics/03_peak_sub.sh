@@ -13,7 +13,7 @@
 module load conda3/202210
 conda activate seurat4
 cd ${PROJECT_ROOT}/pbmc/pbmc3k/benchmark/geneactivity_archr/metrics
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export PEAK_DATA=${DATA_ROOT}/pbmc3k
 export FIG2B_DIR=${PROJECT_ROOT}/pbmc/pbmc3k/benchmark/geneactivity_archr/metrics
 export PEAK_OUT=${PROJECT_ROOT}/pbmc/pbmc3k/benchmark/geneactivity_archr/metrics/peak

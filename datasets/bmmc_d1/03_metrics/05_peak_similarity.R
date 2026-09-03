@@ -11,7 +11,7 @@
 ## Fixes the original's atac3-uses-atac2-annot bug; caches bigWigs (a group dir with *.bw is skipped);
 ## uses old/BMMC_d1/label.csv (same _atacN barcodes as the KNN files) so nothing mis-aligns.
 ## Output: <PEAK_OUT>/peak_similarity.csv (raw) + peakdist.csv (method, peakdist_adj) in FIG2B_DIR.
-EXPORT_BWG <- Sys.getenv("EXPORT_BWG", "/path/to/multiomeBench/common/peak_similarity/export_groupbwg.R")
+EXPORT_BWG <- Sys.getenv("EXPORT_BWG", "/path/to/multiomeBench/common/export_groupbwg.R")
 source(EXPORT_BWG)                                  # ExportGroupBW()
 suppressMessages({library(Signac); library(Seurat)})
 

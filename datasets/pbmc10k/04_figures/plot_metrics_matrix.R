@@ -28,7 +28,7 @@ assemble9 <- function(sum_f, ct_f, accu_f, peak_f, peak_col = "method", remap = 
 }
 
 ## Single-file mode (default): load the shipped final matrix and plot directly.
-## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the published_reference splice).
+## Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
 matrix_csv <- p("fig2b_matrix.csv")
 if (Sys.getenv("REBUILD_MATRIX", "0") != "1" && file.exists(matrix_csv)) {
   mat <- read.csv(matrix_csv, check.names = FALSE)   # mirror the write call's options (row.names = FALSE)

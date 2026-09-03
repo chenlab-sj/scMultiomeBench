@@ -23,7 +23,7 @@ FIG="${ROOT}/BRCA/benchmark/figS4a"
 BRCA="${ROOT}/BRCA/HT243B1-S1H4"
 cd "${FIG}"
 
-export EXPORT_BWG=${BENCHMARK_FUN_DIR}/peak_similarity/export_groupbwg.R
+export EXPORT_BWG=${BENCHMARK_FUN_DIR}/export_groupbwg.R
 export PEAK_DATA="${BRCA}"
 export FRAG_FILE="${BRCA}/HT243B1-S1H4-atac_fragments.tsv.gz"   # 2.7G fragments (+ .tbi)
 export H5_FILE="${BRCA}/HT243B1-S1H4_commonpeaks.h5"            # test ATAC, common peaks (matches fragments)

@@ -12,8 +12,8 @@
 # Vendored helper libraries (benchmark_fun.py, export_groupbwg.R, plot_regionpeak_fun.R)
 : "${BENCHMARK_FUN_DIR:=${PROJECT_ROOT}/common}"
 
-# Published baseline values spliced into some figures; one published_reference/
-# subdirectory per dataset under results/ (see results/README.md)
+# Legacy root for the figure input tables (all now live under results/ --
+# see results/README.md)
 : "${PUBLISHED_REF:=${PROJECT_ROOT}/results}"
 
 # Cloned method repositories (scJoint, scBridge, scMoMaT were run from git clones,

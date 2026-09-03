@@ -8,32 +8,32 @@ library(dplyr)
 ## (from the LSF run logs) are appended in runtime_memory_sel_plus.csv. Outputs -> this dir.
 ## paths auto-detect cluster vs Mac mount (so this runs both locally and as a bsub job)
 ON_CLUSTER <- dir.exists("/path/to/multiomeBench")
-SUM <- if (ON_CLUSTER) "/path/to/multiomeBench/sum_plot" else
-                       "/path/to/multiomeBench/sum_plot"
+SUM <- if (ON_CLUSTER) "/path/to/multiomeBench/results/summary" else
+                       "/path/to/multiomeBench/results/summary"
 LSA <- if (ON_CLUSTER) "/path/to/multiomeBench/common" else "/path/to/multiomeBench/common"
 
 top10_methods <- c('scglue(multiome)','scVI','scglue','scJoint','Seurat(CCA)','Portal','simba','BindSC','scBridge',
                    'MaxFuse','MIDAS','scButterfly')
-pbmc3k.file  <- file.path(LSA, 'pbmc3k/benchmark_matrix/sum_metrics_clean.csv')
+pbmc3k.file  <- '/path/to/multiomeBench/results/pbmc3k/sum_metrics_clean.csv'
 pbmc3k <- read.csv(pbmc3k.file, row.names = 1)
 
-RMS.file  <- file.path(LSA, 'Mast607A/benchmark_matrix/sum_metrics_clean.csv')
+RMS.file  <- '/path/to/multiomeBench/results/rms/sum_metrics_clean.csv'
 RMS <- read.csv(RMS.file,row.names = 1)
 RMS <- RMS[which(RMS$method %in% top10_methods),]
 
-BRCA_1samp.file  <- file.path(LSA, 'HT243B1-S1H4/benchmark_matrix/sum_metrics_clean.csv')
+BRCA_1samp.file  <- '/path/to/multiomeBench/results/brca/sum_metrics_clean.csv'
 BRCA_1samp <- read.csv(BRCA_1samp.file ,row.names = 1)
 BRCA_1samp <- BRCA_1samp[which(BRCA_1samp$method %in% top10_methods),]
-BRCA_macrosub.file  <- file.path(LSA, 'HT243B1-S1H4/subset_stability.csv')
+BRCA_macrosub.file  <- '/path/to/multiomeBench/results/brca/subset_stability.csv'
 BRCA_macrosub <- read.csv(BRCA_macrosub.file  ,row.names = 2)
 BRCA_1samp$Rare.cell.type.performance<-BRCA_macrosub[BRCA_1samp$method,'stability']
 
-BRCA_rep.file  <- file.path(LSA, 'HT243B1-S1H4/reproducbility.csv')
+BRCA_rep.file  <- '/path/to/multiomeBench/results/brca/reproducbility.csv'
 BRCA_rep <- read.csv(BRCA_rep.file  ,row.names = 2)
 BRCA_1samp$Computational.reproducibility<-BRCA_rep[BRCA_1samp$method,'reproducibility']
 
 
-BMMC.file  <- file.path(LSA, 'BMMC_d1/sum_metrics_clean.csv')
+BMMC.file  <- '/path/to/multiomeBench/results/bmmc_d1/sum_metrics_clean.csv'
 BMMC <- read.csv(BMMC.file,row.names = 1)
 BMMC <- BMMC[which(BMMC$method %in% top10_methods),]
 

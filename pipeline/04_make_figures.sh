@@ -79,15 +79,15 @@ run() {
 }
 
 # Consumes: the metric tables from stage 03 (and, for two panels only, the
-#           published baseline values in results/<dataset>/published_reference/).
+#           not-shipped reference tables, available on request).
 # Produces: the manuscript figure files.
 #
 # This is the cheap stage. Given the shipped metric tables it runs in minutes on a
 # laptop and does not need any method environment -- an R env with ggplot2/patchwork
 # and a python env with matplotlib/seaborn/scanpy cover everything here.
 #
-# published_reference splicing: only two scripts actually splice published baseline
-# values into a panel -- pbmc3k Fig2B and the BRCA FigS6 matrix. Other scripts contain a splice
+# Rebuild mode (REBUILD_MATRIX=1) reads the original run's reference tables (not shipped);
+# only pbmc3k Fig2B and the BRCA FigS6 matrix use them there. Other scripts contain a splice
 # branch that is dead code (their drivers set SPLICE_PUBLISHED=0).
 #
 # NOTE on Fig S7 / 4C / 5C (formerly missing, recovered 2026-08-31): Fig S7 = the three
@@ -101,7 +101,7 @@ run() {
 
 if want pbmc3k; then
   say "04 figures :: PBMC 3k  (10x multiome; 23 methods; Fig2, Fig3, Fig4, FigS1-S3)"
-  note "fig2b/plot_metrics_matrix.R is one of the two scripts that splice published_reference baseline values"
+  note "fig2b/plot_metrics_matrix.R loads the shipped merged matrix by default; REBUILD_MATRIX=1 rebuilds it from the reference tables"
   sub "datasets/pbmc3k/04_figures/fig2a"
   run "datasets/pbmc3k/04_figures/fig2a/make_umap_grid.py"
   lsf "datasets/pbmc3k/04_figures/fig2a/umap_grid_sub.sh"
@@ -159,7 +159,7 @@ fi
 
 if want brca; then
   say "04 figures :: BRCA HT243B1-S1H4 (dbGaP phs002371.v3.p1, CONTROLLED ACCESS; Fig4, FigS4-S6)"
-  note "plot_metrics_matrix.R (FigS6) is the other splice site; its _sub.sh sets SPLICE_PUBLISHED=1"
+  note "plot_metrics_matrix.R (FigS6) rebuild mode reads the reference tables; its _sub.sh sets SPLICE_PUBLISHED=1"
   sub "datasets/brca/04_figures"
   run "datasets/brca/04_figures/plot_fig4_combined_brca_pbmc.py"
   run "datasets/brca/04_figures/plot_fig4c_confusion.py"

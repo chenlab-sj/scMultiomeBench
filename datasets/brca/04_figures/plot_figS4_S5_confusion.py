@@ -20,7 +20,7 @@ import seaborn as sns
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PRED = pd.read_csv(os.path.join(HERE, "rep_knn_k10_pred_label_7type.csv"), index_col=0)
-LABEL = os.path.join(HERE, "..", "old", "HT243B1-S1H4", "label.csv")
+LABEL = "/path/to/multiomeBench/results/brca/label.csv"
 if not os.path.exists(LABEL):
     LABEL = os.path.join(HERE, "label.csv")
 lab = pd.read_csv(LABEL, index_col=0).dropna(subset=["cell_type"])
