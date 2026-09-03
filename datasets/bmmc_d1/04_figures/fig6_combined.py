@@ -62,7 +62,7 @@ FACETS = ["Biological diversity\npreservation", "Batch effects\ncorrection",
 def bmmc_scores():
     # Single-file mode (default): load the shipped final score frame and plot directly.
     # Set REBUILD_MATRIX=1 to rebuild it from the per-metric tables (+ the reference tables, available on request).
-    scores_csv = os.path.join(D, "fig6_scores.csv")
+    scores_csv = "/path/to/multiomeBench/results/bmmc_d1/fig6/fig6_scores.csv"
     if os.environ.get("REBUILD_MATRIX", "0") != "1" and os.path.exists(scores_csv):
         tab = pd.read_csv(scores_csv)
     else:

@@ -51,9 +51,8 @@ scMultiomeBench/
 │   └── rms/
 ├── summary/              Cross-dataset analyses (Fig 7, Fig S2A, Fig S13)
 ├── pipeline/             Numbered driver scripts recording the execution order
-├── results/              All figure inputs: merged final tables, metric tables, per-method
-│                         latents and ground-truth labels (see results/README.md)
-└── figures/              Rendered manuscript figures
+└── results/              All figure inputs: merged final tables, metric tables, per-method
+                          latents and ground-truth labels (see results/README.md)
 ```
 
 Inside each dataset: `01_preprocess → 02_methods/<Method> → 03_metrics → 04_figures`. Numeric
