@@ -45,8 +45,8 @@ comp_res <- read.csv(comp_res.file)
 comp_res_summary <-comp_res %>%
   group_by(methods) %>%
   summarise(
-    avg_running_time = mean(running.time_raw, na.rm = TRUE),
-    avg_memory_usage = mean(memory.usage_raw, na.rm = TRUE)
+    avg_running_time = mean(running.time, na.rm = TRUE),
+    avg_memory_usage = mean(memory.usage, na.rm = TRUE)
   )
 
 comp_res_summary$avg_running_time<- ifelse(comp_res_summary$avg_running_time > 200000, 200000,comp_res_summary$avg_running_time) 

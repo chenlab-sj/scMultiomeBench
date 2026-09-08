@@ -25,8 +25,8 @@ BMMC       <- BMMC[BMMC$method %in% top10_methods,]
 rev_norm <- function(x) ifelse(is.na(x), NA, 1 - ((x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))))
 comp_res <- read.csv(file.path(SUM,'runtime_memory_sel_plus.csv'))
 comp_sum <- comp_res %>% group_by(methods) %>%
-  summarise(avg_running_time = mean(running.time_raw, na.rm = TRUE),
-            avg_memory_usage  = mean(memory.usage_raw, na.rm = TRUE), .groups = "drop")
+  summarise(avg_running_time = mean(running.time, na.rm = TRUE),
+            avg_memory_usage  = mean(memory.usage, na.rm = TRUE), .groups = "drop")
 comp_sum$avg_running_time <- ifelse(comp_sum$avg_running_time > 200000, 200000, comp_sum$avg_running_time)
 comp_res <- comp_res[,c('methods','GPU.requirment','Data.requirement')] %>% merge(comp_sum, by = 'methods')
 comp_res$Data <- "Usability"
