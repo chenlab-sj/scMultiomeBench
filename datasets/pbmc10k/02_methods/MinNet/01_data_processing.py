@@ -1,6 +1,6 @@
 ## interactive on gpu node on hpc
 ## 
-##bsub -P hpcf_interactive -J hpcf_interactive -n 1 -q gpu_short -R "rusage[mem=100001]" -gpu "num=1/host" -Is "bash"
+##bsub -P interactive -J interactive -n 1 -q gpu_short -R "rusage[mem=100001]" -gpu "num=1/host" -Is "bash"
 ## module load  conda3/202105
 ## cd  to the test dir
 ###########################################
