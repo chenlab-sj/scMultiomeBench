@@ -295,21 +295,15 @@ the `results/rms/knn_test/` prediction tables.
 |---|---|---|---|
 | Raw FASTQ, Cell Ranger `outs/`, fragment files, `.h5`, `.h5ad`, `.rds`, `.RData`, BAM, bigWig | **~250 GB total; largest single file 21.6 GB** | GitHub rejects files over 100 MB and this volume is not distributable through git at all | Sections 3–8 above; `00_download/` for the open datasets |
 | Per-method intermediate outputs (latent embeddings for every method × dataset × replicate, ArrowFiles, model checkpoints) | tens of GB | regenerable by rerunning `02_methods/`; not primary data | rerun the method scripts, or contact the authors |
-| `results/rms/knn_test/predicted_ataclabel_foxo1value.csv` | 88.7 MB | too large for a comfortable checkout | **available from the authors on request** |
-| `results/rms/knn_test/predicted_ataclabel_myod1value.csv` | 18.1 MB | same | **available from the authors on request** |
-
-The two `predicted_ataclabel_*` tables are per-cell FOXO1 and MYOD1 values keyed by KNN-predicted ATAC
-label; they are the direct inputs to **Fig S8 and Fig S9**. Every other RMS figure can be regenerated
-without them.
+| `results/` — merged final tables, per-metric tables, per-method latents, reference tables and ground-truth labels (see `results/README.md`) | small (a few hundred MB) | kept out of version control by policy | **available directly from the authors on request** |
 
 The file-type exclusions are enforced by `.gitignore` (`*.h5`, `*.h5ad`, `*.rds`, `*.RData`, `*.mtx*`,
-`*.tsv.gz`, `*.bam`, `*.bw`, `*.npy`, `ArrowFiles/`, …), which also blocks
+`*.tsv.gz`, `*.bam`, `*.bw`, `*.npy`, `ArrowFiles/`, `results/`, …), which also blocks
 `config/config.local.sh` so that no local path map is ever published.
 
-**What *is* included**: every script under `datasets/`, `summary/`, `pipeline/` and `config/`, and
-all figure input tables under `results/` — the merged final tables, per-metric tables, per-method
-latents and ground-truth labels (the two oversized RMS tables above are gitignored and available
-on request). See `results/README.md`.
+**What *is* included**: every script under `datasets/`, `summary/`, `pipeline/` and `config/`. The
+figure input tables under `results/` are not published in this repository — contact the authors for
+a copy.
 
 ---
 

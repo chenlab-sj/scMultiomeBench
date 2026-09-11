@@ -1,5 +1,9 @@
 # `results/` — figure inputs
 
+**This directory is not published in this repository** (kept out of version control by policy) —
+it is **available directly from the authors on request**. This file documents what it contains for
+anyone who has obtained a copy.
+
 All tables the manuscript figures and tables are drawn from, one directory per dataset key. The
 merged final tables (`fig2b_matrix.csv`, `metrics_matrix.csv`, `fig6_scores.csv`) are single-file
 figure inputs: each metrics-matrix script loads its merged table directly and regenerates the

@@ -46,8 +46,9 @@ execute; `[lib]` an imported library; `[manual]` a by-hand step (stage 00); `#` 
   04_make_figures.sh   per-dataset panels + summary/ cross-dataset figures
 ```
 
-Stage 04 is cheap: the figures regenerate in minutes from the tables shipped under `results/` and
-need no method environment. Stages 02 and 03 are the expensive ones; only stage 02 needs a GPU.
+Stage 04 is cheap: the figures regenerate in minutes from the tables under `results/` (not
+published in this repository — available from the authors on request) and need no method
+environment. Stages 02 and 03 are the expensive ones; only stage 02 needs a GPU.
 
 ## Environments
 

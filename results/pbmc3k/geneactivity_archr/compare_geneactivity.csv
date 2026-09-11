@@ -1,7 +1,0 @@
-method,Signac,ArchR,delta(ArchR-Signac),in_headline,Signac_rank,ArchR_rank
-Seurat(CCA),0.69,0.688,-0.002,True,1.0,1.0
-Portal,0.686,0.576,-0.11,True,2.0,4.0
-BindSC,0.636,0.653,0.017,True,3.0,2.0
-MaxFuse,0.629,0.62,-0.009,True,4.0,3.0
-scBridge,0.624,0.536,-0.089,True,5.0,5.0
-scJoint,0.676,0.101,-0.574,False,,

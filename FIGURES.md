@@ -3,17 +3,18 @@
 Every manuscript and supplementary figure, the script in this repository that draws it, that
 script's inputs, and the dataset it comes from.
 
-Paths are relative to the repository root. `<metrics>` denotes the metric working directory for
+Paths are relative to the repository root. `results/` (referenced throughout below) is not
+published in this repository — it is available directly from the authors on request; see
+`results/README.md` for what it contains. `<metrics>` denotes the metric working directory for
 that dataset (`datasets/<dataset>/03_metrics/`, or the sub-experiment's own `03_metrics/`), which
 is where the `00_*`–`05_*` metric scripts write `sum_metrics.csv`, `celltype_metrics.csv`,
 `adj_atac_predaccu.csv` and `peakdist.csv`. Those intermediate CSVs are produced by the metric
 step; they are not tracked in `results/`.
 
-Every metrics-matrix figure regenerates from its shipped merged table in `results/` by default
+Every metrics-matrix figure regenerates from its merged table in `results/` by default
 (single-file mode). Rebuilding a merged table from scratch (`REBUILD_MATRIX=1`) additionally needs
-the reference tables of the original run, which are not shipped (available from the authors on
-request); `SPLICE_PUBLISHED` branches other than pbmc3k Fig 2B and BRCA Fig S6 are dead code kept
-for provenance.
+the reference tables of the original run; `SPLICE_PUBLISHED` branches other than pbmc3k Fig 2B and
+BRCA Fig S6 are dead code kept for provenance.
 
 Datasets: `pbmc3k`, `pbmc10k`, `pbmc_parse` (Parse Evercode), `bmmc_d1`, `brca` (HT243B1-S1H4),
 `rms` (Mast607A).

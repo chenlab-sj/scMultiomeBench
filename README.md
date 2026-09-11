@@ -50,10 +50,12 @@ scMultiomeBench/
 │   ├── brca/             (+ 05_macrophage_subsample)
 │   └── rms/
 ├── summary/              Cross-dataset analyses (Fig 7, Fig S2A, Fig S13)
-├── pipeline/             Numbered driver scripts recording the execution order
-└── results/              All figure inputs: merged final tables, metric tables, per-method
-                          latents and ground-truth labels (see results/README.md)
+└── pipeline/             Numbered driver scripts recording the execution order
 ```
+
+`results/` (merged final tables, metric tables, per-method latents, ground-truth labels — see
+`results/README.md`) is not published in this repository; it is **available directly from the
+authors on request**.
 
 Inside each dataset: `01_preprocess → 02_methods/<Method> → 03_metrics → 04_figures`. Numeric
 prefixes give the run order; `05_`/`06_` directories are follow-up analyses branching off the main
@@ -81,10 +83,11 @@ file before running one by hand.
 
 Rerunning the integration methods is not required to redraw any figure. Every metrics-matrix figure
 (Fig 2B, 5A, S2C, S6, S11, S12, and the Fig 6A panel) runs in **single-file mode by default**: the
-script loads its shipped merged table from `results/` (`fig2b_matrix.csv` / `metrics_matrix.csv` /
+script loads a merged table from `results/` (`fig2b_matrix.csv` / `metrics_matrix.csv` /
 `fig6_scores.csv`) and renders the published figure directly — verified to round-trip identically.
 Set `REBUILD_MATRIX=1` to instead rebuild the merged table from the per-metric tables plus the
-reference tables of the original run (not shipped; available from the authors on request).
+reference tables of the original run. `results/` is not published in this repository — it, and the
+per-metric/reference tables, are **available directly from the authors on request**.
 
 **`FIGURES.md` maps every manuscript and supplementary panel to the script that generates it and
 the inputs it needs.** Start there. `DATA.md` documents every raw-data source and access route.
@@ -105,18 +108,3 @@ scButterfly) need hand-pinning — build those with `envs/conda/setup_*.sh` and 
 `verify_*.sh` instead of a plain `conda env create`. R package versions for the `seurat4`
 environment (Seurat/Signac prep, Seurat CCA/WNN, Conos, peak similarity, plotting) are recorded in
 `envs/R/package_versions_seurat4.txt`.
-
-## 7. Known limitations
-
-* **Two large inputs are not committed.** `predicted_ataclabel_foxo1value.csv` (88.7 MB) and
-  `predicted_ataclabel_myod1value.csv` (18.1 MB), needed by Fig 5B/5C and Figs S7–S9, are gitignored
-  for size and **available from the authors on request**.
-* **The `*_sub.sh` submitters are site-specific.** They carry the original LSF `bsub` directives
-  (queues, GPU requests, module loads) as a record of how each step was resourced; translate them to
-  your own scheduler.
-* **`.py` and `.R` scripts use placeholder paths**, not live config lookups — edit the placeholder
-  block at the top of a script before running it by hand. Scripts are syntax-checked but were not
-  re-executed after path scrubbing.
-* **BRCA is controlled access** (dbGaP phs002371.v3.p1). Only aggregated, de-identified BRCA tables
-  are carried in this repository; no BRCA object, fragment file or per-cell table may be
-  redistributed.
