@@ -3,9 +3,11 @@
 Every manuscript and supplementary figure, the script in this repository that draws it, that
 script's inputs, and the dataset it comes from.
 
-Paths are relative to the repository root. `results/` (referenced throughout below) is not
-published in this repository — it is available directly from the authors on request; see
-`results/README.md` for what it contains. `<metrics>` denotes the metric working directory for
+Paths are relative to the repository root. `results/` (referenced throughout below) ships in this
+repository, apart from four excluded categories — per-cell ground-truth labels, per-method
+predicted labels, the two oversized RMS pileup tables, and the per-method embeddings of every
+dataset except pbmc3k; those are available directly from the authors on request. See
+`results/README.md` for the full contents. `<metrics>` denotes the metric working directory for
 that dataset (`datasets/<dataset>/03_metrics/`, or the sub-experiment's own `03_metrics/`), which
 is where the `00_*`–`05_*` metric scripts write `sum_metrics.csv`, `celltype_metrics.csv`,
 `adj_atac_predaccu.csv` and `peakdist.csv`. Those intermediate CSVs are produced by the metric
@@ -250,9 +252,10 @@ Inputs:
 `datasets/rms/03_metrics/04_compute_new_pileups.R`. The script caches the assembled tracks in
 `region_long.rds` and reuses it on later runs.
 
-> **Two inputs are gitignored and are not in the public repository:**
-> `results/rms/knn_test/predicted_ataclabel_foxo1value.csv` (88.7 MB) and
-> `predicted_ataclabel_myod1value.csv` (18.1 MB). They are required for Fig 5B, Fig S8 and Fig S9.
+> **Three inputs are gitignored and are not in the public repository:**
+> `results/rms/knn_test/predicted_ataclabel_foxo1value.csv` (88.7 MB),
+> `predicted_ataclabel_myod1value.csv` (18.1 MB) — both required for Fig 5B, Fig S8 and Fig S9 —
+> and the per-cell tables `results/rms/label.csv` and `knn_k10_pred_label.csv`.
 > **Available from the authors on request.**
 
 Superseded, not included in this repository: `plot_figS6.R`, the single-page 14-row version. It
@@ -286,7 +289,7 @@ The s1d1 baseline is paired multiome, so it carries the full 9 metrics; the cros
 | Panel | Script | Key inputs | Dataset |
 |---|---|---|---|
 | S12 (metrics matrix) | `datasets/pbmc_parse/04_figures/plot_metrics_matrix.R` | `<metrics>/{sum_metrics,celltype_metrics,adj_atac_predaccu,peakdist}.csv` from `03_metrics/00_build_label.py` → `01_prep_latents.py` → `02_compute_metrics.py` → `03_adjust_accuracy.py` → `04_peak_similarity.R` | pbmc_parse |
-| per-method UMAPs | `datasets/pbmc_parse/04_figures/plot_umap.py` | per-method latent CSV (**shipped in `results/pbmc_parse/latents/`**) + `label.csv` + `knn_pred_label__<method>.csv` (**shipped in `results/pbmc_parse/knn_pred_label/`**) | pbmc_parse |
+| per-method UMAPs | `datasets/pbmc_parse/04_figures/plot_umap.py` | per-method latent CSV (`results/pbmc_parse/latents/`) + `label.csv` + `knn_pred_label__<method>.csv` (`results/pbmc_parse/knn_pred_label/`) — none committed; only the pbmc3k embeddings ship | pbmc_parse |
 
 Preprocessing: `01_preprocess/00_data_prep.R` → `01_azimuth_annotate_parse.R` →
 `02_compare_donor_composition.R` → `03_qc_confidence_donors.R` → `04_build_integration_dataset.R`.
@@ -376,8 +379,9 @@ peak distance.
    table from the per-metric CSVs plus the not-shipped reference tables (available on request). For other figures, if the
    inputs are not already on disk, run that dataset's `01_preprocess`, `02_methods` and
    `03_metrics` steps first; the numbered filenames give the order, and each dataset's
-   `03_metrics/run_all.sh` chains them where one exists. Every figure input table ships under
-   `results/`, except the two large RMS files noted under Fig S8/S9 (gitignored, available on request).
+   `03_metrics/run_all.sh` chains them where one exists. The metrics tables for every dataset and
+   the 23 pbmc3k embeddings ship under `results/`; the four excluded categories listed at the top
+   of this file are gitignored and available on request.
 
 3. **Run the script named in the table.**
 

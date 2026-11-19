@@ -1,0 +1,149 @@
+method,accuracy,type
+Seurat(CCA),0.8867433282707746,overall
+Seurat(CCA),0.7157012195121951,Basal progenitor
+Seurat(CCA),0.0,Endothelial
+Seurat(CCA),0.971830985915493,Fibroblasts
+Seurat(CCA),0.9683794466403162,Luminal progenitor
+Seurat(CCA),0.9736842105263158,Macrophages
+Seurat(CCA),0.8181818181818182,Plasma
+Seurat(CCA),0.1818181818181818,T-cells
+Seurat(CCA),0.7428571428571429,Tumor
+BindSC,0.8446517682794532,overall
+BindSC,0.8170731707317073,Basal progenitor
+BindSC,0.0,Endothelial
+BindSC,0.8732394366197183,Fibroblasts
+BindSC,0.9189723320158104,Luminal progenitor
+BindSC,0.8491228070175438,Macrophages
+BindSC,0.8484848484848485,Plasma
+BindSC,0.1818181818181818,T-cells
+BindSC,0.8571428571428571,Tumor
+scBridge,0.9286179214580168,overall
+scBridge,0.899390243902439,Basal progenitor
+scBridge,0.0,DC
+scBridge,0.9014084507042254,Endothelial
+scBridge,0.9901185770750988,Fibroblasts
+scBridge,0.9052631578947368,Luminal progenitor
+scBridge,0.9696969696969696,Macrophages
+scBridge,0.9090909090909092,Plasma
+scBridge,0.9142857142857144,T-cells
+scBridge,0.941432720232333,Tumor
+scglue,0.6869169017140377,overall
+scglue,0.4161585365853658,Basal progenitor
+scglue,0.0,Endothelial
+scglue,0.943661971830986,Fibroblasts
+scglue,0.8359683794466403,Luminal progenitor
+scglue,0.9228070175438596,Macrophages
+scglue,0.0,Plasma
+scglue,0.0,T-cells
+scglue,0.9428571428571428,Tumor
+scglue(multiome),0.7843349967454979,overall
+scglue(multiome),0.4016768292682927,Basal progenitor
+scglue(multiome),0.0,Endothelial
+scglue(multiome),0.9859154929577464,Fibroblasts
+scglue(multiome),0.966403162055336,Luminal progenitor
+scglue(multiome),0.9526315789473684,Macrophages
+scglue(multiome),0.8787878787878788,Plasma
+scglue(multiome),0.9090909090909092,T-cells
+scglue(multiome),0.8285714285714286,Tumor
+scJoint,0.9227598177478846,overall
+scJoint,0.8528963414634146,Basal progenitor
+scJoint,0.0,Endothelial
+scJoint,0.8028169014084507,Fibroblasts
+scJoint,0.9901185770750988,Luminal progenitor
+scJoint,0.8789473684210526,Macrophages
+scJoint,0.8181818181818182,Plasma
+scJoint,0.5454545454545454,T-cells
+scJoint,0.8285714285714286,Tumor
+scVI,0.2842265133434584,overall
+scVI,0.0990853658536585,Basal progenitor
+scVI,0.0,Endothelial
+scVI,0.2676056338028169,Fibroblasts
+scVI,0.0810276679841897,Luminal progenitor
+scVI,0.312280701754386,Macrophages
+scVI,0.9090909090909092,Plasma
+scVI,0.0,T-cells
+scVI,0.9142857142857144,Tumor
+Cobolt,0.4534606205250596,overall
+Cobolt,0.0365853658536585,Basal progenitor
+Cobolt,0.0,Endothelial
+Cobolt,0.1830985915492957,Fibroblasts
+Cobolt,0.0553359683794466,Luminal progenitor
+Cobolt,0.0070175438596491,Macrophages
+Cobolt,0.2121212121212121,Plasma
+Cobolt,0.0909090909090909,T-cells
+Cobolt,0.2571428571428571,Tumor
+simba,0.8824039921891951,overall
+simba,0.7949695121951219,Basal progenitor
+simba,0.0,Endothelial
+simba,0.9295774647887324,Fibroblasts
+simba,0.9367588932806324,Luminal progenitor
+simba,0.8947368421052632,Macrophages
+simba,0.9393939393939394,Plasma
+simba,0.3636363636363636,T-cells
+simba,0.8285714285714286,Tumor
+Portal,0.7459318724235192,overall
+Portal,0.6028963414634146,Basal progenitor
+Portal,0.0,Endothelial
+Portal,0.9014084507042254,Fibroblasts
+Portal,0.9545454545454546,Luminal progenitor
+Portal,0.7280701754385965,Macrophages
+Portal,0.8787878787878788,Plasma
+Portal,0.6363636363636364,T-cells
+Portal,1.0,Tumor
+scDART,0.5619440225645477,overall
+scDART,0.010670731707317,Basal progenitor
+scDART,0.0,Endothelial
+scDART,0.028169014084507,Fibroblasts
+scDART,0.0,Luminal progenitor
+scDART,0.9298245614035088,Macrophages
+scDART,0.0,Plasma
+scDART,0.0,T-cells
+scDART,0.0285714285714285,Tumor
+MaxFuse,0.8912996311564331,overall
+MaxFuse,0.8338414634146342,Basal progenitor
+MaxFuse,0.0,DC
+MaxFuse,0.0,Endothelial
+MaxFuse,0.9268774703557312,Fibroblasts
+MaxFuse,0.9543859649122808,Luminal progenitor
+MaxFuse,0.0303030303030303,Macrophages
+MaxFuse,0.0,Plasma
+MaxFuse,0.9714285714285714,T-cells
+MaxFuse,0.9515972894482092,Tumor
+MIDAS,0.4957691473204599,overall
+MIDAS,0.2378048780487804,Basal progenitor
+MIDAS,0.0,DC
+MIDAS,0.1267605633802817,Endothelial
+MIDAS,0.2233201581027667,Fibroblasts
+MIDAS,0.019298245614035,Luminal progenitor
+MIDAS,1.0,Macrophages
+MIDAS,0.3636363636363636,Plasma
+MIDAS,0.6571428571428571,T-cells
+MIDAS,0.861568247821878,Tumor
+scButterfly,0.47667606856151,overall
+scButterfly,0.0007621951219512,Basal progenitor
+scButterfly,0.0,Endothelial
+scButterfly,0.6901408450704225,Fibroblasts
+scButterfly,0.1699604743083003,Luminal progenitor
+scButterfly,0.0894736842105263,Macrophages
+scButterfly,0.9696969696969696,Plasma
+scButterfly,0.1818181818181818,T-cells
+scButterfly,0.9142857142857144,Tumor
+scVI(seed0),0.5968756780212627,overall
+scVI(seed0),0.2271341463414634,Basal progenitor
+scVI(seed0),0.0,Endothelial
+scVI(seed0),0.2253521126760563,Fibroblasts
+scVI(seed0),0.758893280632411,Luminal progenitor
+scVI(seed0),0.2789473684210526,Macrophages
+scVI(seed0),0.8484848484848485,Plasma
+scVI(seed0),0.2727272727272727,T-cells
+scVI(seed0),0.9428571428571428,Tumor
+scVI(seed40),0.3775222390974181,overall
+scVI(seed40),0.19588414634146342,Basal progenitor
+scVI(seed40),0.0,DC
+scVI(seed40),0.18309859154929578,Endothelial
+scVI(seed40),0.20355731225296442,Fibroblasts
+scVI(seed40),0.0,Luminal progenitor
+scVI(seed40),0.9090909090909091,Macrophages
+scVI(seed40),0.36363636363636365,Plasma
+scVI(seed40),0.9714285714285714,T-cells
+scVI(seed40),0.6287512100677638,Tumor

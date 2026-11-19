@@ -24,12 +24,23 @@ barcodes.tsv
 features.tsv
 matrix.mtx
 
-# ---- processed result tables: kept locally, not published ----
-# Merged/per-metric/reference tables and per-method latents.
-# Available directly from the authors on request; results/README.md documents the
-# contents and stays tracked so the request path is visible in the repository.
-results/*
-!results/README.md
+# ---- results/: published, with three deliberate exclusions ----
+# Published: every metrics table for all six datasets, plus the 23 per-method
+# integrated embeddings behind the pbmc3k Fig 2B matrix (results/pbmc3k/latents/).
+# Excluded below and available from the authors on request -- see results/README.md:
+#   1. per-cell ground-truth label tables (the BRCA ones are dbGaP-derived)
+#   2. per-method predicted-label tables
+#   3. the two oversized RMS pileup tables (85 MB + 17 MB)
+#   4. per-method embeddings for the five datasets other than pbmc3k (size)
+results/**/label.csv
+results/**/label_major.csv
+results/**/knn_pred_label__*.csv
+results/**/knn_k10_pred_label.csv
+results/**/predicted_ataclabel_*value.csv
+# embeddings: only pbmc3k is published; the other five are staged locally for
+# on-request sharing (~960 MB), organised identically with their own SOURCES.tsv
+results/*/latents/
+!results/pbmc3k/latents/
 
 # ---- local-only path mapping: must never be published ----
 config/config.local.sh

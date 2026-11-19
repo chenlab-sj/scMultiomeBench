@@ -10,7 +10,6 @@
 # RUN WITH bash on a GPU node (so torch.cuda is testable):
 #   bsub -P benchmark -q gpu -gpu "num=1" -Is /bin/bash
 #   bash setup_multigrate_env.sh
-#   bash verify_multigrate_env.sh
 # =============================================================================
 set -euo pipefail
 
@@ -45,4 +44,4 @@ print("anndata    :", anndata.__version__)
 print("torch      :", torch.__version__)
 print("cuda avail :", torch.cuda.is_available())
 PY
-echo "DONE: env '${ENV_NAME}' built. Now run:  bash verify_multigrate_env.sh"
+echo "DONE: env '${ENV_NAME}' built."

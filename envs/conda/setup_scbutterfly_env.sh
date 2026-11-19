@@ -10,7 +10,6 @@
 # RUN WITH bash on a GPU node:
 #   bsub -P benchmark -q gpu -gpu "num=1" -Is /bin/bash
 #   bash setup_scbutterfly_env.sh
-#   bash verify_scbutterfly_env.sh
 # =============================================================================
 set -euo pipefail
 
@@ -63,4 +62,4 @@ print("scButterfly import: OK")
 print("torch     :", torch.__version__)
 print("cuda avail:", torch.cuda.is_available())
 PY
-echo "DONE: env '${ENV_NAME}' built. Now run:  bash verify_scbutterfly_env.sh"
+echo "DONE: env '${ENV_NAME}' built."

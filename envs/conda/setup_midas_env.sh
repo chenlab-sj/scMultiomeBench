@@ -9,7 +9,6 @@
 # RUN WITH bash on a GPU node (so torch.cuda verifies):
 #   bsub -P benchmark -q gpu -gpu "num=1" -Is /bin/bash
 #   bash setup_midas_env.sh
-#   bash verify_midas_env.sh
 # =============================================================================
 set -euo pipefail
 
@@ -42,4 +41,4 @@ print("mudata  :", mudata.__version__)
 print("anndata :", anndata.__version__)
 print("cuda    :", torch.cuda.is_available())
 PY
-echo "DONE: env '${ENV_NAME}' built. Now run:  bash verify_midas_env.sh"
+echo "DONE: env '${ENV_NAME}' built."

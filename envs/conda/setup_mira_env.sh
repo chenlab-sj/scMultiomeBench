@@ -12,7 +12,6 @@
 # RUN IT WITH bash (NOT sh) on a GPU node so torch.cuda is testable:
 #   bsub -P benchmark -q gpu -gpu "num=1" -Is /bin/bash      # interactive GPU node
 #   bash setup_mira_env.sh
-#   bash verify_mira_env.sh                                   # confirm success
 # =============================================================================
 set -euo pipefail
 
@@ -80,4 +79,4 @@ echo "================ pip check ================"
 python -m pip check
 
 rm -f "${CFILE}"
-echo "DONE: env '${ENV_NAME}' built. Now run:  bash verify_mira_env.sh"
+echo "DONE: env '${ENV_NAME}' built."

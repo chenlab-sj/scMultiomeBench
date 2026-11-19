@@ -217,7 +217,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "03 metrics :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
+  say "03 metrics :: RMS Mast607A (GEO GSE309784; Fig5, FigS8-S10)"
   sub "datasets/rms/03_metrics"
   run "datasets/rms/03_metrics/00_prep_latents.py"
   run "datasets/rms/03_metrics/01_compute_metrics.py"

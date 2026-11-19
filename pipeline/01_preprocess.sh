@@ -170,7 +170,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "01 preprocess :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
+  say "01 preprocess :: RMS Mast607A (GEO GSE309784; Fig5, FigS8-S10)"
   note "dataset-level preprocessing"
   sub "datasets/rms/01_preprocess"
   lsf "datasets/rms/01_preprocess/00_cellranger_arc_sub.sh"

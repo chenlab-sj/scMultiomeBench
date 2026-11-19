@@ -11,7 +11,6 @@
 #
 # RUN WITH bash (not sh), isolation matters (see PYTHONNOUSERSITE below):
 #   bash setup_maxfuse_env.sh
-#   bash verify_maxfuse_env.sh
 # =============================================================================
 set -euo pipefail
 
@@ -48,4 +47,4 @@ echo "================ pip check ================"
 python -m pip check
 
 rm -f "${CFILE}"
-echo "DONE: env '${ENV_NAME}' built. Now run:  bash verify_maxfuse_env.sh"
+echo "DONE: env '${ENV_NAME}' built."

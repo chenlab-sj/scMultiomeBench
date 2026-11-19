@@ -729,7 +729,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "02 methods :: RMS Mast607A (GEO GSE209784; Fig5, FigS8-S10)"
+  say "02 methods :: RMS Mast607A (GEO GSE309784; Fig5, FigS8-S10)"
   note "activate the method-specific conda env before each block"
   sub "datasets/rms/02_methods/BindSC"
   run "datasets/rms/02_methods/BindSC/01_run_bindsc.R"

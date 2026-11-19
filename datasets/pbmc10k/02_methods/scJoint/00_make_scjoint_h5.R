@@ -56,7 +56,8 @@ write_h5_scJoint(rna_counts.lst,"pbmc10k_control_rna_scjoint.h5")
 
 ##### cell type label
 ########################################################################
-## celltype list file
+## celltype list file -- per-cell pbmc10k annotation table, not shipped in this
+## repository (per-cell label tables are excluded); available from the authors on request.
 label_file<-"/path/to/multiomeBench/common/1_pbmc10k_annot0818.csv"
 label_df <- read.csv(label_file,row.names = 1)
 test_label <- label_df[colnames(rna.counts.sel),]

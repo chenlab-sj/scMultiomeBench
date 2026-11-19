@@ -171,7 +171,7 @@ if want brca; then
 fi
 
 if want rms; then
-  say "04 figures :: RMS Mast607A (GEO GSE209784; Fig5, FigS7-S10)"
+  say "04 figures :: RMS Mast607A (GEO GSE309784; Fig5, FigS7-S10)"
   note "figS7_S9/plot_pileup_grid_2page.R produces FigS8-S9 and needs the two gitignored predicted_ataclabel_*.csv files"
   note "figS7_multiome_vs_annotation/ draws the three FigS7 strips (MYOD1/FOXO1/MEOX2), assembled manually"
   sub "datasets/rms/04_figures/fig5a"

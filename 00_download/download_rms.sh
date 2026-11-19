@@ -8,7 +8,7 @@
 # the route and verifies the expected layout; the cellranger-arc step is
 # site-specific and is not run from here.
 #
-# GEO accession: GSE209784 (open access).
+# GEO accession: GSE309784 (open access).
 #
 # Expected layout, as read by datasets/rms/01_preprocess/ (note: RMS/, not rms/):
 #   $DATA_ROOT/RMS/<sample>/<sample>/outs/filtered_feature_bc_matrix.h5
@@ -43,7 +43,7 @@ done
 cat >&2 <<EOF
 
 MANUAL STEPS REQUIRED (open access, but compute-heavy)
-  1. The GEO accession is GSE209784.
+  1. The GEO accession is GSE309784.
   2. Download the raw sequencing for the three samples from GEO/SRA.
   3. Process each sample with cellranger-arc count v2.0.0 against GRCh37/hg19.
   4. Place each sample's Cell Ranger 'outs/' as shown above under
